@@ -1,0 +1,41 @@
+# Taskfile configuration
+# Path: tasks/logical/dev.yml
+
+version: "3"
+tasks:
+  dev:
+    desc: Start development mode
+    aliases:
+      - dev:start
+    cmds:
+      - |-
+        echo "🚀 Starting development mode..."
+        echo "  📦 Build watch mode"
+        echo "  🔍 Lint watch mode"
+        echo "  🧪 Test watch mode"
+        echo ""
+        echo "Use Ctrl+C to stop all processes"
+
+        # Start all watch processes in background
+        task build:watch &
+        BUILD_PID=$!
+
+        task lint:watch &
+        LINT_PID=$!
+
+        task test:watch &
+        TEST_PID=$!
+
+        # Function to cleanup on exit
+        cleanup() {
+          echo ""
+          echo "🛑 Stopping development mode..."
+          kill $BUILD_PID $LINT_PID $TEST_PID 2>/dev/null || true
+          exit 0
+        }
+
+        # Set trap for cleanup
+        trap cleanup SIGINT SIGTERM
+
+        # Wait for any process to exit
+        wait

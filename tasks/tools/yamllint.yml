@@ -1,0 +1,13 @@
+# Taskfile configuration
+# Path: tasks/tools/yamllint.yml
+
+version: "3"
+tasks:
+  yamllint:check:
+    desc: Lint YAML files
+    cmds:
+      - yamllint .
+    sources:
+      - "**/*.yml"
+      - "**/*.yaml"
+      - ".yamllint.yml"

@@ -1,0 +1,12 @@
+# Taskfile configuration
+# Path: tasks/logical/release.yml
+
+version: "3"
+tasks:
+  release:prepare:
+    desc: Prepare for release
+    cmds:
+      - task: clean:all
+      - task: deps:install
+      - task: ci:check
+      - task: docs:build

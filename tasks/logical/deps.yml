@@ -1,0 +1,30 @@
+# Taskfile configuration
+# Path: tasks/logical/deps.yml
+
+version: "3"
+tasks:
+  deps:install:
+    aliases:
+      - install
+    desc: Install dependencies
+    cmds:
+      - bun install
+  deps:install:frozen:
+    aliases:
+      - install:frozen
+    desc: Install dependencies with an immutable lockfile
+    cmds:
+      - bun install --frozen-lockfile
+  deps:update:
+    desc: Update dependencies
+    cmds:
+      - bun run npm-check-updates -u
+      - bun install
+  deps:check:
+    desc: Check for outdated dependencies
+    cmds:
+      - bun run npm-check-updates
+  deps:clean:
+    desc: Clean dependencies
+    cmds:
+      - rm -rf node_modules

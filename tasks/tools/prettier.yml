@@ -1,0 +1,25 @@
+# Taskfile configuration
+# Path: tasks/tools/prettier.yml
+
+version: "3"
+tasks:
+  prettier:check:
+    desc: Check YAML/Markdown formatting with Prettier
+    cmds:
+      - prettier --check .
+    sources:
+      - "**/*.yml"
+      - "**/*.yaml"
+      - "**/*.md"
+      - ".prettierrc.json"
+      - ".prettierignore"
+  prettier:write:
+    desc: Format YAML/Markdown with Prettier
+    cmds:
+      - prettier --write .
+    sources:
+      - "**/*.yml"
+      - "**/*.yaml"
+      - "**/*.md"
+      - ".prettierrc.json"
+      - ".prettierignore"

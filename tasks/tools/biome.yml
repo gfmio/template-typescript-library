@@ -1,0 +1,110 @@
+# Taskfile configuration
+# Path: tasks/tools/biome.yml
+
+version: "3"
+tasks:
+  biome:check:
+    desc: Run Biome linting checks
+    cmds:
+      - bun run biome check .
+    sources:
+      - "{{.SRC_TS_FILES}}"
+      - "{{.SRC_TSX_FILES}}"
+      - "{{.SRC_JS_FILES}}"
+      - "{{.SRC_JSX_FILES}}"
+      - "{{.BIOME_CONFIG}}"
+  biome:check:write:
+    desc: Run Biome with auto-fix
+    cmds:
+      - bun run biome check --write .
+    sources:
+      - "{{.SRC_TS_FILES}}"
+      - "{{.SRC_TSX_FILES}}"
+      - "{{.SRC_JS_FILES}}"
+      - "{{.SRC_JSX_FILES}}"
+      - "{{.BIOME_CONFIG}}"
+  biome:check:unsafe:
+    desc: Run Biome with unsafe auto-fix
+    cmds:
+      - bun run biome check --write --unsafe .
+    sources:
+      - "{{.SRC_TS_FILES}}"
+      - "{{.SRC_TSX_FILES}}"
+      - "{{.SRC_JS_FILES}}"
+      - "{{.SRC_JSX_FILES}}"
+      - "{{.BIOME_CONFIG}}"
+  biome:format:
+    desc: Check formatting with Biome
+    cmds:
+      - bun run biome format .
+    sources:
+      - "{{.SRC_TS_FILES}}"
+      - "{{.SRC_TSX_FILES}}"
+      - "{{.SRC_JS_FILES}}"
+      - "{{.SRC_JSX_FILES}}"
+      - "{{.BIOME_CONFIG}}"
+  biome:format:write:
+    desc: Format code with Biome
+    cmds:
+      - bun run biome format --write .
+    sources:
+      - "{{.SRC_TS_FILES}}"
+      - "{{.SRC_TSX_FILES}}"
+      - "{{.SRC_JS_FILES}}"
+      - "{{.SRC_JSX_FILES}}"
+      - "{{.BIOME_CONFIG}}"
+  biome:check:watch:
+    desc: Run Biome linting in watch mode
+    cmds:
+      - bun run biome check . --watch
+    sources:
+      - "{{.SRC_TS_FILES}}"
+      - "{{.SRC_TSX_FILES}}"
+      - "{{.SRC_JS_FILES}}"
+      - "{{.SRC_JSX_FILES}}"
+      - "{{.BIOME_CONFIG}}"
+    watch: true
+  biome:check:write:watch:
+    desc: Run Biome with auto-fix in watch mode
+    cmds:
+      - bun run biome check --write . --watch
+    sources:
+      - "{{.SRC_TS_FILES}}"
+      - "{{.SRC_TSX_FILES}}"
+      - "{{.SRC_JS_FILES}}"
+      - "{{.SRC_JSX_FILES}}"
+      - "{{.BIOME_CONFIG}}"
+    watch: true
+  biome:check:unsafe:watch:
+    desc: Run Biome with unsafe auto-fix in watch mode
+    cmds:
+      - bun run biome check --write --unsafe . --watch
+    sources:
+      - "{{.SRC_TS_FILES}}"
+      - "{{.SRC_TSX_FILES}}"
+      - "{{.SRC_JS_FILES}}"
+      - "{{.SRC_JSX_FILES}}"
+      - "{{.BIOME_CONFIG}}"
+    watch: true
+  biome:format:watch:
+    desc: Check formatting with Biome in watch mode
+    cmds:
+      - bun run biome format . --watch
+    sources:
+      - "{{.SRC_TS_FILES}}"
+      - "{{.SRC_TSX_FILES}}"
+      - "{{.SRC_JS_FILES}}"
+      - "{{.SRC_JSX_FILES}}"
+      - "{{.BIOME_CONFIG}}"
+    watch: true
+  biome:format:write:watch:
+    desc: Format code with Biome in watch mode
+    cmds:
+      - bun run biome format --write . --watch
+    sources:
+      - "{{.SRC_TS_FILES}}"
+      - "{{.SRC_TSX_FILES}}"
+      - "{{.SRC_JS_FILES}}"
+      - "{{.SRC_JSX_FILES}}"
+      - "{{.BIOME_CONFIG}}"
+    watch: true

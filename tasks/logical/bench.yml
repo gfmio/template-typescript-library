@@ -1,0 +1,18 @@
+# Taskfile configuration
+# Path: tasks/logical/bench.yml
+
+version: "3"
+tasks:
+  bench:
+    desc: Run benchmarks
+    aliases:
+      - benchmark
+    cmds:
+      - task: tools-vitest:vitest:bench
+  bench:watch:
+    desc: Run benchmarks in watch mode
+    aliases:
+      - benchmark:watch
+    cmds:
+      - task: tools-vitest:vitest:bench:watch
+    watch: true

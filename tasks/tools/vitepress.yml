@@ -1,0 +1,23 @@
+# Taskfile configuration
+# Path: tasks/tools/vitepress.yml
+
+version: "3"
+tasks:
+  vitepress:build:
+    desc: Build documentation site
+    cmds:
+      - bun run vitepress build docs
+    sources:
+      - "{{.DOCS_MD_FILES}}"
+      - "{{.DOCS_CONFIG_FILES}}"
+      - "{{.DOCS_API_OUTPUT}}"
+    generates:
+      - "{{.DOCS_SITE_OUTPUT}}"
+  vitepress:dev:
+    desc: Start documentation dev server
+    cmds:
+      - bun run vitepress dev docs
+  vitepress:preview:
+    desc: Preview built documentation
+    cmds:
+      - bun run vitepress preview docs

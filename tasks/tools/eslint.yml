@@ -1,0 +1,37 @@
+# Taskfile configuration
+# Path: tasks/tools/eslint.yml
+
+version: "3"
+tasks:
+  eslint:check:
+    desc: Lint JSDoc comments
+    cmds:
+      - bun run eslint {{.SRC_TS_FILES}}
+    sources:
+      - "{{.SRC_TS_FILES}}"
+      - "{{.ESLINT_CONFIG}}"
+  eslint:fix:
+    desc: Fix JSDoc comments
+    cmds:
+      - bun run eslint {{.SRC_TS_FILES}} --fix
+    sources:
+      - "{{.SRC_TS_FILES}}"
+      - "{{.ESLINT_CONFIG}}"
+  docs:lint:
+    desc: Lint source code JSDoc comments
+    cmds:
+      - "# Only lint source code JSDoc comments"
+      - "# Markdown linting is skipped as ESLint cannot properly parse TypeScript fragments in documentation"
+      - bun run eslint {{.SRC_TS_FILES}}
+    sources:
+      - "{{.SRC_TS_FILES}}"
+      - "{{.SRC_JS_FILES}}"
+      - "{{.ESLINT_CONFIG}}"
+  docs:lint:fix:
+    desc: Lint and fix source code JSDoc comments
+    cmds:
+      - bun run eslint {{.SRC_TS_FILES}} --fix
+    sources:
+      - "{{.SRC_TS_FILES}}"
+      - "{{.SRC_JS_FILES}}"
+      - "{{.ESLINT_CONFIG}}"

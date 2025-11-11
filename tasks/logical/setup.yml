@@ -1,0 +1,13 @@
+# Taskfile configuration
+# Path: tasks/logical/setup.yml
+
+version: "3"
+tasks:
+  setup:
+    desc: Set up the project
+    cmds:
+      - task: logical-deps:deps:install
+      - task: tools-tsc:typecheck
+      - task: logical-build:build
+      - task: logical-lint:lint:check
+      - task: logical-test:test:coverage

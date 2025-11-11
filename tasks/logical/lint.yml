@@ -1,0 +1,52 @@
+# Taskfile configuration
+# Path: tasks/logical/lint.yml
+
+version: "3"
+tasks:
+  lint:check:
+    desc: Run all linting checks
+    aliases:
+      - lint
+    cmds:
+      - task: biome:check
+      - task: eslint:check
+  lint:fix:
+    desc: Fix all linting issues
+    aliases:
+      - fix
+    cmds:
+      - task: biome:check:write
+      - task: eslint:fix
+  lint:fix:unsafe:
+    desc: Fix all linting issues (unsafe)
+    aliases:
+      - fix:unsafe
+    cmds:
+      - task: biome:check:unsafe
+      - task: eslint:fix
+  lint:watch:
+    desc: Run linting in watch mode
+    cmds:
+      - bun run biome check . --watch
+    watch: true
+  lint:check:watch:
+    desc: Run linting checks in watch mode
+    aliases:
+      - lint:watch
+    cmds:
+      - task: biome:check:watch
+    watch: true
+  lint:fix:watch:
+    desc: Run linting with auto-fix in watch mode
+    aliases:
+      - fix:watch
+    cmds:
+      - task: biome:check:write:watch
+    watch: true
+  lint:fix:unsafe:watch:
+    desc: Run linting with unsafe auto-fix in watch mode
+    aliases:
+      - fix:unsafe:watch
+    cmds:
+      - task: biome:check:unsafe:watch
+    watch: true

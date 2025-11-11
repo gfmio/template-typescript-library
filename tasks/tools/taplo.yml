@@ -1,0 +1,19 @@
+# Taskfile configuration
+# Path: tasks/tools/taplo.yml
+
+version: "3"
+tasks:
+  taplo:check:
+    desc: Check TOML formatting
+    cmds:
+      - taplo check
+    sources:
+      - "**/*.toml"
+      - "taplo.toml"
+  taplo:format:
+    desc: Format TOML files
+    cmds:
+      - taplo format
+    sources:
+      - "**/*.toml"
+      - "taplo.toml"

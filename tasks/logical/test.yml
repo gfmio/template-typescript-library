@@ -1,0 +1,111 @@
+# Taskfile configuration
+# Path: tasks/logical/test.yml
+
+version: "3"
+tasks:
+  test:
+    desc: Run all tests
+    aliases:
+      - test:default
+      - test:run
+    cmds:
+      - task: vitest:run
+  test:watch:
+    desc: Run tests in watch mode
+    cmds:
+      - task: vitest:watch
+    watch: true
+  test:coverage:
+    desc: Run tests with coverage
+    cmds:
+      - task: vitest:coverage
+  test:coverage:watch:
+    desc: Run tests with coverage in watch mode
+    cmds:
+      - task: vitest:coverage:watch
+    watch: true
+  test:unit:
+    desc: Run unit tests
+    cmds:
+      - task: vitest:unit
+  test:unit:watch:
+    desc: Run unit tests in watch mode
+    cmds:
+      - task: vitest:unit:watch
+    watch: true
+  test:unit:coverage:
+    desc: Run unit tests with coverage
+    cmds:
+      - task: vitest:unit:coverage
+  test:integration:
+    desc: Run integration tests
+    cmds:
+      - task: vitest:integration
+  test:integration:watch:
+    desc: Run integration tests in watch mode
+    cmds:
+      - task: vitest:integration:watch
+    watch: true
+  test:integration:coverage:
+    desc: Run integration tests with coverage
+    cmds:
+      - task: vitest:integration:coverage
+  test:e2e:
+    desc: Run end-to-end tests
+    cmds:
+      - task: vitest:e2e
+  test:e2e:watch:
+    desc: Run end-to-end tests in watch mode
+    cmds:
+      - task: vitest:e2e:watch
+    watch: true
+  test:e2e:coverage:
+    desc: Run end-to-end tests with coverage
+    cmds:
+      - task: vitest:e2e:coverage
+  test:performance:
+    desc: Run performance tests
+    cmds:
+      - task: vitest:performance
+  test:performance:watch:
+    desc: Run performance tests in watch mode
+    cmds:
+      - task: vitest:performance:watch
+    watch: true
+  test:performance:coverage:
+    desc: Run performance tests with coverage
+    cmds:
+      - task: vitest:performance:coverage
+  test:types:
+    desc: Run type tests
+    cmds:
+      - task: vitest:types
+  test:types:watch:
+    desc: Run type tests in watch mode
+    cmds:
+      - task: vitest:types:watch
+    watch: true
+  test:fast:
+    desc: Run only fast tests
+    cmds:
+      - task: vitest:fast
+  test:slow:
+    desc: Run only slow tests
+    cmds:
+      - task: vitest:slow
+  test:database:
+    desc: Run database-related tests
+    cmds:
+      - task: vitest:database
+  test:api:
+    desc: Run API-related tests
+    cmds:
+      - task: vitest:api
+  test:external:
+    desc: Run tests with external dependencies
+    cmds:
+      - task: vitest:external
+  test:ci:
+    desc: Run CI tests
+    cmds:
+      - bun run vitest run --reporter=verbose --coverage

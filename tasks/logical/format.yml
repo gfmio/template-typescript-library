@@ -1,0 +1,36 @@
+# Taskfile configuration
+# Path: tasks/logical/format.yml
+
+version: "3"
+tasks:
+  format:check:
+    desc: Check all formatting
+    cmds:
+      - task: biome:format
+      - task: prettier:check
+      - task: markdownlint:check
+      - task: yamllint:check
+      - task: taplo:check
+  format:fix:
+    desc: Fix all formatting
+    aliases:
+      - fmt
+      - format
+    cmds:
+      - task: biome:format:write
+      - task: prettier:write
+      - task: markdownlint:fix
+      - task: taplo:format
+  format:check:watch:
+    desc: Check formatting in watch mode
+    cmds:
+      - task: biome:format:watch
+    watch: true
+  format:fix:watch:
+    desc: Fix formatting in watch mode
+    aliases:
+      - fmt:watch
+      - format:watch
+    cmds:
+      - task: biome:format:write:watch
+    watch: true

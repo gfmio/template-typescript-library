@@ -1,0 +1,30 @@
+# Taskfile configuration
+# Path: tasks/logical/clean.yml
+
+version: "3"
+tasks:
+  clean:
+    desc: Clean build and test artifacts
+    cmds:
+      - task: clean:build
+      - task: clean:test
+  clean:build:
+    desc: Clean build artifacts
+    cmds:
+      - rm -rf {{.BUILD_DIR}} {{.DIST_DIR}}
+  clean:test:
+    desc: Clean test artifacts
+    cmds:
+      - rm -rf {{.COVERAGE_DIR}}
+  clean:docs:
+    desc: Clean documentation
+    cmds:
+      - rm -rf {{.DOCS_OUT_DIR}}
+      - rm -rf docs/.vitepress/cache
+  clean:all:
+    desc: Clean everything
+    cmds:
+      - task: clean:build
+      - task: clean:test
+      - task: clean:docs
+      - task: deps:clean

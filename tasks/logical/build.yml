@@ -1,0 +1,17 @@
+# Taskfile configuration
+# Path: tasks/logical/build.yml
+
+version: "3"
+tasks:
+  build:
+    desc: Build the package
+    aliases:
+      - build:default
+    cmds:
+      - task: tsc:check
+      - task: tsup:build
+  build:watch:
+    desc: Build in watch mode
+    cmds:
+      - task: tsup:watch
+    watch: true

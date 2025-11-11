@@ -1,0 +1,31 @@
+# Taskfile configuration
+# Path: tasks/logical/docs.yml
+
+version: "3"
+tasks:
+  docs:build:
+    desc: Build all documentation
+    cmds:
+      - task: build
+      - task: typedoc:build
+      - task: vitepress:build
+  docs:api:
+    desc: Build API documentation
+    cmds:
+      - task: typedoc:build
+  docs:site:
+    desc: Build documentation site
+    cmds:
+      - task: vitepress:build
+  docs:dev:
+    desc: Start documentation dev server
+    cmds:
+      - task: vitepress:dev
+  docs:preview:
+    desc: Preview documentation
+    cmds:
+      - task: vitepress:preview
+  docs:version:
+    desc: Create a new versioned copy of the documentation
+    cmds:
+      - bun run scripts/version-docs.ts {{.CLI_ARGS}}

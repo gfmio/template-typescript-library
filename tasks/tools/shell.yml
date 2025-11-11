@@ -1,0 +1,18 @@
+# Taskfile configuration
+# Path: tasks/tools/shell.yml
+
+version: "3"
+tasks:
+  shell:
+    aliases:
+      - $
+    desc: Launch shell or execute command in this directory
+    cmds:
+      - |-
+        if [ $# -eq 0 ]; then
+          echo "🐚 Launching shell in $PWD"
+          exec $SHELL
+        else
+          echo "🚀 Executing: $*"
+          exec "$@"
+        fi

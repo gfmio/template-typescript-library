@@ -1,0 +1,25 @@
+# Taskfile configuration
+# Path: tasks/tools/tsup.yml
+
+version: "3"
+tasks:
+  tsup:build:
+    desc: Build with tsup
+    cmds:
+      - bun run tsup
+    sources:
+      - "{{.SRC_TS_FILES}}"
+      - "{{.SRC_TSX_FILES}}"
+      - "{{.TSUP_CONFIG}}"
+      - "{{.TS_CONFIG}}"
+    generates:
+      - "{{.BUILD_OUTPUT}}"
+  tsup:watch:
+    desc: Build in watch mode
+    cmds:
+      - bun run tsup --watch
+    sources:
+      - "{{.SRC_TS_FILES}}"
+      - "{{.SRC_TSX_FILES}}"
+      - "{{.TSUP_CONFIG}}"
+      - "{{.TS_CONFIG}}"

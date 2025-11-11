@@ -1,0 +1,53 @@
+# Taskfile configuration
+# Path: tasks/logical/ci.yml
+
+version: "3"
+tasks:
+  ci:install:
+    desc: Install dependencies for CI
+    cmds:
+      - task: deps:install:frozen
+  ci:typecheck:
+    desc: Run type checking for CI
+    cmds:
+      - task: tsc:check
+  ci:lint:
+    desc: Run linting for CI
+    cmds:
+      - task: lint:check
+  ci:format:
+    desc: Run format checking for CI
+    cmds:
+      - task: format:check
+  ci:build:
+    desc: Build for CI
+    cmds:
+      - task: build
+  ci:test:
+    desc: Run tests for CI
+    cmds:
+      - task: test:ci
+  ci:docs:
+    desc: Build documentation for CI
+    cmds:
+      - task: docs:build
+  ci:examples:
+    desc: Run examples for CI
+    cmds:
+      - task: examples
+  ci:check:
+    desc: Run all CI checks
+    aliases:
+      - validate
+    cmds:
+      - task: ci:typecheck
+      - task: ci:lint
+      - task: ci:format
+      - task: ci:build
+      - task: ci:test
+  ci:precommit:
+    desc: Run pre-commit checks
+    cmds:
+      - task: lint:fix
+      - task: format:fix
+      - task: tsc:check

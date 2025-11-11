@@ -1,0 +1,147 @@
+# Taskfile configuration
+# Path: tasks/tools/vitest.yml
+
+version: "3"
+tasks:
+  vitest:run:
+    desc: Run tests with Vitest
+    cmds:
+      - bun run vitest run
+    sources:
+      - "{{.SRC_TS_FILES}}"
+      - "{{.SRC_TSX_FILES}}"
+      - "{{.TEST_FILES}}"
+      - "{{.VITEST_CONFIG}}"
+      - "{{.TS_CONFIG}}"
+  vitest:watch:
+    desc: Run tests in watch mode
+    cmds:
+      - bun run vitest
+    sources:
+      - "{{.SRC_TS_FILES}}"
+      - "{{.SRC_TSX_FILES}}"
+      - "{{.TEST_FILES}}"
+      - "{{.VITEST_CONFIG}}"
+      - "{{.TS_CONFIG}}"
+  vitest:coverage:
+    desc: Run tests with coverage
+    cmds:
+      - bun run vitest run --coverage
+    sources:
+      - "{{.SRC_TS_FILES}}"
+      - "{{.SRC_TSX_FILES}}"
+      - "{{.TEST_FILES}}"
+      - "{{.VITEST_CONFIG}}"
+      - "{{.TS_CONFIG}}"
+    generates:
+      - "{{.COVERAGE_OUTPUT}}"
+  vitest:coverage:watch:
+    desc: Run tests with coverage in watch mode
+    cmds:
+      - bun run vitest --coverage
+    sources:
+      - "{{.SRC_TS_FILES}}"
+      - "{{.SRC_TSX_FILES}}"
+      - "{{.TEST_FILES}}"
+      - "{{.VITEST_CONFIG}}"
+      - "{{.TS_CONFIG}}"
+  vitest:unit:
+    desc: Run unit tests only
+    cmds:
+      - bun run vitest run {{.UNIT_TEST_PATTERN}}
+  vitest:unit:watch:
+    desc: Run unit tests in watch mode
+    cmds:
+      - bun run vitest {{.UNIT_TEST_PATTERN}}
+  vitest:unit:coverage:
+    desc: Run unit tests with coverage
+    cmds:
+      - bun run vitest run --coverage {{.UNIT_TEST_PATTERN}}
+    generates:
+      - "{{.COVERAGE_OUTPUT}}"
+  vitest:integration:
+    desc: Run integration tests only
+    cmds:
+      - bun run vitest run {{.INTEGRATION_TEST_PATTERN}}
+  vitest:integration:watch:
+    desc: Run integration tests in watch mode
+    cmds:
+      - bun run vitest {{.INTEGRATION_TEST_PATTERN}}
+  vitest:integration:coverage:
+    desc: Run integration tests with coverage
+    cmds:
+      - bun run vitest run --coverage {{.INTEGRATION_TEST_PATTERN}}
+    generates:
+      - "{{.COVERAGE_OUTPUT}}"
+  vitest:e2e:
+    desc: Run end-to-end tests only
+    cmds:
+      - bun run vitest run {{.E2E_TEST_PATTERN}}
+  vitest:e2e:watch:
+    desc: Run end-to-end tests in watch mode
+    cmds:
+      - bun run vitest {{.E2E_TEST_PATTERN}}
+  vitest:e2e:coverage:
+    desc: Run end-to-end tests with coverage
+    cmds:
+      - bun run vitest run --coverage {{.E2E_TEST_PATTERN}}
+    generates:
+      - "{{.COVERAGE_OUTPUT}}"
+  vitest:performance:
+    desc: Run performance tests only
+    cmds:
+      - bun run vitest run {{.PERFORMANCE_TEST_PATTERN}}
+  vitest:performance:watch:
+    desc: Run performance tests in watch mode
+    cmds:
+      - bun run vitest {{.PERFORMANCE_TEST_PATTERN}}
+  vitest:performance:coverage:
+    desc: Run performance tests with coverage
+    cmds:
+      - bun run vitest run --coverage {{.PERFORMANCE_TEST_PATTERN}}
+    generates:
+      - "{{.COVERAGE_OUTPUT}}"
+  vitest:types:
+    desc: Run type tests only
+    cmds:
+      - bun run vitest --typecheck --run {{.TYPE_TEST_PATTERN}}
+  vitest:types:watch:
+    desc: Run type tests in watch mode
+    cmds:
+      - bun run vitest --typecheck {{.TYPE_TEST_PATTERN}}
+  vitest:fast:
+    desc: Run only fast tests (tagged with @fast)
+    cmds:
+      - bun run vitest run -t "@fast"
+  vitest:slow:
+    desc: Run only slow tests (tagged with @slow)
+    cmds:
+      - bun run vitest run -t "@slow"
+  vitest:database:
+    desc: Run database-related tests (tagged with @database)
+    cmds:
+      - bun run vitest run -t "@database"
+  vitest:api:
+    desc: Run API-related tests (tagged with @api)
+    cmds:
+      - bun run vitest run -t "@api"
+  vitest:external:
+    desc: Run tests that use external dependencies (tagged with @external)
+    cmds:
+      - bun run vitest run -t "@external"
+  vitest:bench:
+    desc: Run benchmarks
+    cmds:
+      - bun run vitest bench --config vitest.bench.config.ts
+    sources:
+      - "{{.BENCH_FILES}}"
+      - "{{.VITEST_BENCH_CONFIG}}"
+    generates:
+      - "{{.BENCH_OUTPUT}}"
+  vitest:bench:watch:
+    desc: Run benchmarks in watch mode
+    cmds:
+      - bun run vitest bench --config vitest.bench.config.ts --watch
+    sources:
+      - "{{.BENCH_FILES}}"
+      - "{{.VITEST_BENCH_CONFIG}}"

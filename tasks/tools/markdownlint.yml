@@ -1,0 +1,21 @@
+# Taskfile configuration
+# Path: tasks/tools/markdownlint.yml
+
+version: "3"
+tasks:
+  markdownlint:check:
+    desc: Lint Markdown files
+    cmds:
+      - markdownlint-cli2 "**/*.md"
+    sources:
+      - "**/*.md"
+      - ".markdownlint.json"
+      - ".markdownlint-cli2.jsonc"
+  markdownlint:fix:
+    desc: Lint and fix Markdown files
+    cmds:
+      - markdownlint-cli2 --fix "**/*.md"
+    sources:
+      - "**/*.md"
+      - ".markdownlint.json"
+      - ".markdownlint-cli2.jsonc"

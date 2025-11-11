@@ -1,0 +1,15 @@
+# Taskfile configuration
+# Path: tasks/tools/typedoc.yml
+
+version: "3"
+tasks:
+  typedoc:build:
+    desc: Generate API documentation
+    cmds:
+      - bun run typedoc --options {{.TYPEDOC_CONFIG}}
+    sources:
+      - "{{.SRC_TS_FILES}}"
+      - "{{.TYPEDOC_CONFIG}}"
+      - README.md
+    generates:
+      - "{{.DOCS_API_OUTPUT}}"
