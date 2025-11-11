@@ -1,4 +1,4 @@
-import { greet, Calculator } from '@gfmio/template-typescript-library';
+import { Calculator, greet } from '@gfmio/template-typescript-library';
 
 // Example: Using the greet function
 console.log(greet('World'));

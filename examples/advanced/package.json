@@ -1,9 +1,9 @@
 {
-  "name": "example-advanced",
-  "version": "0.0.0",
-  "private": true,
-  "type": "module",
   "dependencies": {
     "@gfmio/template-typescript-library": "file:../.."
-  }
+  },
+  "name": "example-advanced",
+  "private": true,
+  "type": "module",
+  "version": "0.0.0"
 }

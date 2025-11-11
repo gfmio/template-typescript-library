@@ -1,13 +1,14 @@
 import { bench, describe } from 'vitest';
-import { greet, Calculator } from '../src/index';
+
+import { Calculator, greet } from '../src/index.ts';
 
 describe('greet() function benchmarks', () => {
   describe('@benchmark @performance', () => {
     // Test different input sizes to measure performance characteristics
     const inputs = {
-      short: 'Alice',
-      medium: 'Christopher',
       long: 'Bartholomew Maximilian',
+      medium: 'Christopher',
+      short: 'Alice',
       veryLong: 'A'.repeat(100),
     };
 

@@ -1,4 +1,5 @@
 #!/usr/bin/env bun
+
 /**
  * Creates a new versioned copy of the documentation
  *
@@ -8,6 +9,7 @@
  */
 import { cpSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import process from 'node:process';
 
 const rootDir = join(import.meta.dir, '..');
 const docsDir = join(rootDir, 'docs');
@@ -29,9 +31,7 @@ if (!/^v\d+\.\d+\.\d+$/.test(version)) {
 }
 
 // Read package.json to verify version matches
-const packageJson = JSON.parse(
-  readFileSync(join(rootDir, 'package.json'), 'utf-8')
-);
+const packageJson = JSON.parse(readFileSync(join(rootDir, 'package.json'), 'utf-8'));
 const expectedVersion = `v${packageJson.version}`;
 if (version !== expectedVersion) {
   console.warn(`Warning: Version ${version} doesn't match package.json version ${expectedVersion}`);
@@ -52,7 +52,7 @@ if (existsSync(versionsFile)) {
 }
 
 // Check if version already exists
-if (versions.some(v => v.version === version)) {
+if (versions.some((v) => v.version === version)) {
   console.error(`Error: Version ${version} already exists`);
   process.exit(1);
 }
@@ -64,15 +64,22 @@ if (existsSync(versionPath)) {
   process.exit(1);
 }
 
-mkdirSync(versionPath, { recursive: true });
+mkdirSync(versionPath, {
+  recursive: true,
+});
 
 // Copy documentation files (exclude .vitepress directory)
-const filesToCopy = ['guide', 'api'];
+const filesToCopy = [
+  'guide',
+  'api',
+];
 for (const file of filesToCopy) {
   const src = join(docsDir, file);
   const dest = join(versionPath, file);
   if (existsSync(src)) {
-    cpSync(src, dest, { recursive: true });
+    cpSync(src, dest, {
+      recursive: true,
+    });
     console.log(`✓ Copied ${file}/ to ${version}/${file}/`);
   }
 }
@@ -85,23 +92,23 @@ if (existsSync(indexSrc)) {
 }
 
 // Mark all existing versions as maintenance
-versions = versions.map(v => ({
+versions = versions.map((v) => ({
   ...v,
   status: 'maintenance' as const,
 }));
 
 // Add new version as current
 versions.unshift({
-  version,
+  date: new Date().toISOString().split('T')[0],
   label: version,
   path: `/${version}/`,
-  date: new Date().toISOString().split('T')[0],
   status: 'current',
+  version,
 });
 
 // Write updated versions.json
 writeFileSync(versionsFile, JSON.stringify(versions, null, 2) + '\n');
-console.log(`✓ Updated versions.json`);
+console.log('✓ Updated versions.json');
 
 // Update versions.md
 const versionsMd = `# Documentation Versions
@@ -116,10 +123,10 @@ This page lists all available documentation versions.
 
 ${versions
   .map(
-    v =>
+    (v) =>
       `- [${v.label}](${v.path}) - Released ${v.date} ${
         v.status === 'current' ? '(Current)' : v.status === 'maintenance' ? '(Maintenance)' : '(EOL)'
-      }`
+      }`,
   )
   .join('\n')}
 
@@ -143,10 +150,10 @@ Looking for older documentation? Check the [GitHub releases](https://github.com/
 `;
 
 writeFileSync(join(docsDir, 'versions.md'), versionsMd);
-console.log(`✓ Updated versions.md`);
+console.log('✓ Updated versions.md');
 
 console.log('\n✅ Documentation versioned successfully!');
-console.log(`\nNext steps:`);
+console.log('\nNext steps:');
 console.log(`1. Review the versioned docs in docs/${version}/`);
 console.log(`2. Commit the changes: git add docs/${version} docs/versions.json docs/versions.md`);
-console.log(`3. The version selector will appear after deploying to GitHub Pages`);
+console.log('3. The version selector will appear after deploying to GitHub Pages');

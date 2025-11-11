@@ -1,3 +1,5 @@
 import { createLibraryConfig } from '@gfmio/config-tsup';
 
-export default createLibraryConfig(['src/index.ts']);
+export default createLibraryConfig([
+  'src/index.ts',
+]);

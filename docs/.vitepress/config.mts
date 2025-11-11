@@ -1,47 +1,48 @@
-import { createVitepressConfig } from '@gfmio/config-vitepress'
-import { readFileSync, existsSync } from 'node:fs'
-import { join } from 'node:path'
+import { existsSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+import { createVitepressConfig } from '@gfmio/config-vitepress';
 
 // Load versions if available
 interface VersionInfo {
-  version: string
-  label: string
-  path: string
-  date: string
-  status: 'current' | 'maintenance' | 'eol'
+  version: string;
+  label: string;
+  path: string;
+  date: string;
+  status: 'current' | 'maintenance' | 'eol';
 }
 
-let versions: VersionInfo[] = []
-const versionsFile = join(__dirname, '../versions.json')
+let versions: VersionInfo[] = [];
+const versionsFile = join(__dirname, '../versions.json');
 if (existsSync(versionsFile)) {
-  versions = JSON.parse(readFileSync(versionsFile, 'utf-8'))
+  versions = JSON.parse(readFileSync(versionsFile, 'utf-8'));
 }
 
 const baseConfig = createVitepressConfig({
-  title: '@gfmio/template-typescript-library',
+  base: '/', // optional
   description: 'Template for TypeScript libraries with best practices and tooling',
-  base: '/',             // optional
-  outDir: '../out/docs/site',      // optional
   githubRepo: 'https://github.com/gfmio/template-typescript-library',
+  outDir: '../out/docs/site', // optional
+  title: '@gfmio/template-typescript-library',
   // You can also pass a custom nav/sidebar if you don't want the preset
-})
+});
 
 // Add version selector if versions exist
 if (versions.length > 0) {
   const versionItems = [
     {
-      text: 'Latest (main)',
       link: '/',
+      text: 'Latest (main)',
     },
-    ...versions.map(v => ({
-      text: `${v.label}${v.status === 'current' ? ' (Current)' : ''}`,
+    ...versions.map((v) => ({
       link: v.path,
+      text: `${v.label}${v.status === 'current' ? ' (Current)' : ''}`,
     })),
     {
-      text: 'All Versions',
       link: '/versions',
+      text: 'All Versions',
     },
-  ]
+  ];
 
   // Extend themeConfig with version selector
   baseConfig.themeConfig = {
@@ -49,11 +50,11 @@ if (versions.length > 0) {
     nav: [
       ...(baseConfig.themeConfig?.nav || []),
       {
-        text: versions[0]?.label || 'Version',
         items: versionItems,
+        text: versions[0]?.label || 'Version',
       },
     ],
-  }
+  };
 }
 
-export default baseConfig
+export default baseConfig;

@@ -3,16 +3,36 @@
   "extends": [
     "@gfmio/config-biome/biome.json"
   ],
-  "root": true,
   "overrides": [
     {
-      "includes": [".devcontainer/devcontainer.json"],
+      "includes": [
+        ".devcontainer/devcontainer.json"
+      ],
       "json": {
         "parser": {
           "allowComments": true,
           "allowTrailingCommas": true
         }
       }
+    },
+    {
+      "includes": [
+        "examples/**/*.ts"
+      ],
+      "linter": {
+        "rules": {
+          "nursery": {
+            "useExplicitType": "off"
+          },
+          "style": {
+            "noMagicNumbers": "off"
+          },
+          "suspicious": {
+            "noConsole": "off"
+          }
+        }
+      }
     }
-  ]
+  ],
+  "root": true
 }

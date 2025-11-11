@@ -1,24 +1,28 @@
 {
   "$schema": "https://www.schemastore.org/tsconfig.json",
-  "extends": "@gfmio/tsconfig/library.json",
   "compilerOptions": {
-    "paths": {
-      "@/*": ["./src/*"],
-      "@tests/*": ["./tests/*"]
-    },
     "allowImportingTsExtensions": true,
+    "module": "esnext",
     "moduleResolution": "bundler",
     "noEmit": true,
-    "module": "esnext"
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@tests/*": [
+        "./tests/*"
+      ]
+    }
   },
-  "include": [
-    "src/**/*",
-    "tests/**/*",
-    "benchmarks/**/*"
-  ],
   "exclude": [
     "node_modules",
     "dist",
     "out"
+  ],
+  "extends": "@gfmio/tsconfig/library.json",
+  "include": [
+    "src/**/*",
+    "tests/**/*",
+    "benchmarks/**/*"
   ]
 }

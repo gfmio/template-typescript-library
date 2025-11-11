@@ -6,7 +6,7 @@ tasks:
   prettier:check:
     desc: Check YAML/Markdown formatting with Prettier
     cmds:
-      - prettier --check .
+      - bun run prettier --check .
     sources:
       - "**/*.yml"
       - "**/*.yaml"
@@ -16,7 +16,7 @@ tasks:
   prettier:write:
     desc: Format YAML/Markdown with Prettier
     cmds:
-      - prettier --write .
+      - bun run prettier --write .
     sources:
       - "**/*.yml"
       - "**/*.yaml"

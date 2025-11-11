@@ -1,5 +1,6 @@
-import { describe, it, expect } from 'vitest';
-import { greet, Calculator } from './index';
+import { describe, expect, it } from 'vitest';
+
+import { Calculator, greet } from './index.ts';
 
 describe('greet', () => {
   it('should return a greeting message', () => {
