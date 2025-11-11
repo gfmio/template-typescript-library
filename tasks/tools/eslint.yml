@@ -17,21 +17,19 @@ tasks:
     sources:
       - "{{.SRC_TS_FILES}}"
       - "{{.ESLINT_CONFIG}}"
-  docs:lint:
-    desc: Lint source code JSDoc comments
+  eslint:check:watch:
+    desc: Lint JSDoc comments in watch mode
     cmds:
-      - "# Only lint source code JSDoc comments"
-      - "# Markdown linting is skipped as ESLint cannot properly parse TypeScript fragments in documentation"
-      - bun run eslint {{.SRC_TS_FILES}}
+      - bun run eslint {{.SRC_TS_FILES}} --watch
     sources:
       - "{{.SRC_TS_FILES}}"
-      - "{{.SRC_JS_FILES}}"
       - "{{.ESLINT_CONFIG}}"
-  docs:lint:fix:
-    desc: Lint and fix source code JSDoc comments
+    watch: true
+  eslint:fix:watch:
+    desc: Fix JSDoc comments in watch mode
     cmds:
-      - bun run eslint {{.SRC_TS_FILES}} --fix
+      - bun run eslint {{.SRC_TS_FILES}} --fix --watch
     sources:
       - "{{.SRC_TS_FILES}}"
-      - "{{.SRC_JS_FILES}}"
       - "{{.ESLINT_CONFIG}}"
+    watch: true
