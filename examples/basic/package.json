@@ -4,6 +4,6 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@gfmio/template-typescript-library": "workspace:*"
+    "@gfmio/template-typescript-library": "file:../.."
   }
 }
