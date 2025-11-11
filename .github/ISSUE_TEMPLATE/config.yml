@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Ask a Question
+    url: https://github.com/gfmio/template-typescript-library/discussions/new?category=q-a
+    about: Ask the community for help
+  - name: 💡 Suggest an Idea
+    url: https://github.com/gfmio/template-typescript-library/discussions/new?category=ideas
+    about: Share ideas for new features or improvements
+  - name: 📖 Documentation
+    url: https://gfmio.github.io/template-typescript-library/
+    about: Read the project documentation
