@@ -14,17 +14,19 @@ const rootPackage = JSON.parse(
 );
 
 // Fields to keep for publishing
-const publishPackage = {
+const publishPackage: Record<string, unknown> = {
   name: rootPackage.name,
   version: rootPackage.version,
   description: rootPackage.description,
   type: rootPackage.type,
   author: rootPackage.author,
   license: rootPackage.license,
+  homepage: rootPackage.homepage,
   repository: rootPackage.repository,
   bugs: rootPackage.bugs,
-  homepage: rootPackage.homepage,
   keywords: rootPackage.keywords,
+  engines: rootPackage.engines,
+  sideEffects: rootPackage.sideEffects,
   // Adjust paths to be relative to out/build
   main: './index.cjs',
   module: './index.mjs',
@@ -37,16 +39,24 @@ const publishPackage = {
     },
   },
   // Include only runtime dependencies (if any)
-  dependencies: rootPackage.dependencies || {},
-  peerDependencies: rootPackage.peerDependencies || {},
-  // Optional: Include engines if specified
-  engines: rootPackage.engines,
+  dependencies: rootPackage.dependencies,
+  peerDependencies: rootPackage.peerDependencies,
 };
+
+// Remove undefined/empty fields
+const cleanedPackage = Object.fromEntries(
+  Object.entries(publishPackage).filter(
+    ([_, value]) =>
+      value !== undefined &&
+      value !== null &&
+      !(typeof value === 'object' && Object.keys(value as object).length === 0)
+  )
+);
 
 // Write the clean package.json to out/build
 writeFileSync(
   join(outDir, 'package.json'),
-  JSON.stringify(publishPackage, null, 2) + '\n'
+  JSON.stringify(cleanedPackage, null, 2) + '\n'
 );
 
 // Copy README.md and LICENSE to out/build
