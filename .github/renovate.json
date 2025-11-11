@@ -1,0 +1,158 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":separateMajorReleases",
+    ":combinePatchMinorReleases",
+    ":ignoreUnstable",
+    ":prImmediately",
+    ":updateNotScheduled",
+    ":automergeDisabled",
+    ":ignoreModulesAndTests",
+    ":autodetectPinVersions",
+    ":prHourlyLimit2",
+    ":prConcurrentLimit10",
+    "group:monorepos",
+    "group:recommended",
+    "workarounds:all"
+  ],
+  "timezone": "UTC",
+  "schedule": ["before 6am on Monday"],
+  "labels": ["dependencies"],
+  "commitMessagePrefix": "chore(deps):",
+  "commitMessageAction": "update",
+  "commitMessageTopic": "{{depName}}",
+  "commitMessageExtra": "to {{#if isPinDigest}}{{{newDigestShort}}}{{else}}{{#if isMajor}}{{prettyNewMajor}}{{else}}{{#if isSingleVersion}}{{prettyNewVersion}}{{else}}{{#if newValue}}{{{newValue}}}{{else}}{{{newDigestShort}}}{{/if}}{{/if}}{{/if}}{{/if}}",
+  "rangeStrategy": "bump",
+  "packageRules": [
+    {
+      "description": "Automerge non-major updates",
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash",
+      "platformAutomerge": true
+    },
+    {
+      "description": "Group all Biome packages",
+      "matchPackagePatterns": ["^@biomejs/"],
+      "groupName": "Biome",
+      "commitMessageTopic": "Biome"
+    },
+    {
+      "description": "Group all TypeScript packages",
+      "matchPackagePatterns": ["^typescript", "^@types/"],
+      "groupName": "TypeScript",
+      "commitMessageTopic": "TypeScript"
+    },
+    {
+      "description": "Group all Vitest packages",
+      "matchPackagePatterns": ["^vitest", "^@vitest/"],
+      "groupName": "Vitest",
+      "commitMessageTopic": "Vitest"
+    },
+    {
+      "description": "Group all VitePress packages",
+      "matchPackagePatterns": ["^vitepress"],
+      "groupName": "VitePress",
+      "commitMessageTopic": "VitePress"
+    },
+    {
+      "description": "Group all ESLint packages",
+      "matchPackagePatterns": ["^eslint", "^@eslint/"],
+      "groupName": "ESLint",
+      "commitMessageTopic": "ESLint"
+    },
+    {
+      "description": "Group all Prettier packages",
+      "matchPackagePatterns": ["^prettier"],
+      "groupName": "Prettier",
+      "commitMessageTopic": "Prettier"
+    },
+    {
+      "description": "Group all linting tools",
+      "matchPackageNames": [
+        "markdownlint-cli2",
+        "yamllint",
+        "taplo",
+        "commitlint",
+        "@commitlint/cli",
+        "@commitlint/config-conventional"
+      ],
+      "groupName": "Linting tools",
+      "commitMessageTopic": "linting tools"
+    },
+    {
+      "description": "Group all documentation tools",
+      "matchPackageNames": ["typedoc", "@types/node"],
+      "groupName": "Documentation tools",
+      "commitMessageTopic": "documentation tools"
+    },
+    {
+      "description": "Group GitHub Actions updates",
+      "matchManagers": ["github-actions"],
+      "groupName": "GitHub Actions",
+      "commitMessageTopic": "GitHub Actions",
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash"
+    },
+    {
+      "description": "Separate major Bun updates",
+      "matchPackageNames": ["bun"],
+      "matchUpdateTypes": ["major"],
+      "groupName": "Bun (major)",
+      "commitMessageTopic": "Bun (major)",
+      "automerge": false
+    },
+    {
+      "description": "Automerge Bun patch updates",
+      "matchPackageNames": ["bun"],
+      "matchUpdateTypes": ["patch"],
+      "automerge": true
+    },
+    {
+      "description": "Separate major TypeScript updates",
+      "matchPackageNames": ["typescript"],
+      "matchUpdateTypes": ["major"],
+      "groupName": "TypeScript (major)",
+      "commitMessageTopic": "TypeScript (major)",
+      "automerge": false
+    },
+    {
+      "description": "Pin tsup to exact version",
+      "matchPackageNames": ["tsup"],
+      "rangeStrategy": "pin"
+    },
+    {
+      "description": "Require approval for major updates",
+      "matchUpdateTypes": ["major"],
+      "dependencyDashboardApproval": true,
+      "automerge": false
+    },
+    {
+      "description": "Disable updates for pinned dependencies",
+      "matchCurrentVersion": "/^\\d+\\.\\d+\\.\\d+$/",
+      "matchPackageNames": [],
+      "enabled": true
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "labels": ["security"],
+    "automerge": true,
+    "schedule": ["at any time"]
+  },
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 6am on the first day of the month"]
+  },
+  "prCreation": "immediate",
+  "rebaseWhen": "behind-base-branch",
+  "dependencyDashboard": true,
+  "dependencyDashboardTitle": "🤖 Dependency Updates",
+  "dependencyDashboardHeader": "This dashboard shows all pending dependency updates. Click on a checkbox to create a PR for that update now.",
+  "dependencyDashboardLabels": ["dependencies", "renovate"],
+  "configMigration": true
+}
