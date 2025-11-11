@@ -10,7 +10,7 @@ on:
 
 jobs:
   ci:
-    name: Lint, Build and Test
+    name: CI
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
