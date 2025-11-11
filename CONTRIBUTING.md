@@ -10,11 +10,31 @@ This project adheres to the Contributor Covenant [Code of Conduct](CODE_OF_CONDU
 
 ### Prerequisites
 
-Before you begin, ensure you have the following installed:
+This project uses [devenv](https://devenv.sh/) with [direnv](https://direnv.net/) to manage development dependencies. This approach ensures all tooling (yamllint, taplo, Task, etc.) is automatically available without manual installation.
+
+#### Option 1: Using devenv + direnv (Recommended)
+
+1. **Install Nix**: Follow instructions at [nixos.org](https://nixos.org/download.html)
+2. **Install devenv**: Follow instructions at [devenv.sh](https://devenv.sh/getting-started/)
+3. **Install direnv**: Follow instructions at [direnv.net](https://direnv.net/docs/installation.html)
+4. **Configure direnv**: Add to your shell rc file:
+   ```bash
+   eval "$(direnv hook bash)"  # for bash
+   eval "$(direnv hook zsh)"   # for zsh
+   ```
+
+With this setup, all dependencies (Bun, Task, yamllint, taplo, etc.) will be automatically available when you `cd` into the project directory.
+
+#### Option 2: Manual Installation
+
+If you prefer not to use devenv/direnv, install these manually:
 
 - [Bun](https://bun.sh/) >= 1.1.0
 - [Task](https://taskfile.dev/) >= 3.0.0
 - [Git](https://git-scm.com/)
+- [yamllint](https://yamllint.readthedocs.io/)
+- [taplo](https://taplo.tamasfe.dev/)
+- Node.js >= 22 (for npm tooling)
 
 ### Setting Up Your Development Environment
 
@@ -24,11 +44,17 @@ Before you begin, ensure you have the following installed:
    git clone https://github.com/YOUR_USERNAME/template-typescript-library.git
    cd template-typescript-library
    ```
-3. **Install dependencies**:
+3. **Allow direnv** (if using devenv):
+   ```bash
+   direnv allow
+   ```
+   This will automatically install all dependencies via Nix and activate the development environment.
+
+4. **Install Node.js dependencies**:
    ```bash
    task install
    ```
-4. **Create a new branch** for your work:
+5. **Create a new branch** for your work:
    ```bash
    git checkout -b feature/my-new-feature
    ```
