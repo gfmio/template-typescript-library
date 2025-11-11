@@ -15,10 +15,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
         with:
-          bun-version-file: .bun-version
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      - name: Install devenv.sh
+        run: nix profile install nixpkgs#devenv
+
+      - name: Cache Task checksums
+        uses: actions/cache@v4
+        with:
+          path: .task
+          key: ${{ runner.os }}-task-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-task-
 
       - name: Cache Bun dependencies
         uses: actions/cache@v4
@@ -29,10 +40,10 @@ jobs:
             ${{ runner.os }}-bun-
 
       - name: Install dependencies
-        run: bun install --frozen-lockfile
+        run: devenv shell task deps:install:frozen
 
       - name: Build
-        run: bun run build
+        run: devenv shell task build
 
       - name: Setup Node.js for NPM
         uses: actions/setup-node@v4
