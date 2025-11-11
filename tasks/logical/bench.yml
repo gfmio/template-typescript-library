@@ -16,3 +16,19 @@ tasks:
     cmds:
       - task: tools-vitest:vitest:bench:watch
     watch: true
+  bench:compare:
+    desc: Compare benchmark results with baseline
+    cmds:
+      - task: bench
+      - bun run scripts/compare-benchmarks.ts
+  bench:baseline:
+    desc: Set current benchmark results as baseline
+    cmds:
+      - task: bench
+      - cp benchmarks/results.json benchmarks/baseline.json
+      - echo "✓ Baseline updated"
+  bench:compare:threshold:
+    desc: Compare benchmarks with custom threshold (usage - task bench:compare:threshold -- --threshold 15)
+    cmds:
+      - task: bench
+      - bun run scripts/compare-benchmarks.ts {{.CLI_ARGS}}
