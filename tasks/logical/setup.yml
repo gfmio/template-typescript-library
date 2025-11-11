@@ -8,6 +8,8 @@ tasks:
     cmds:
       - task: deps:install
       - task: lefthook:install
+      # Create .scratch directory for local development
+      - cmd: mkdir -p .scratch
       - task: typecheck
       - task: build
       - task: lint:check
