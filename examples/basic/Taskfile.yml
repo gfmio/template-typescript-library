@@ -5,3 +5,12 @@ tasks:
     desc: Run the example
     cmd: bun run index.ts
     silent: true
+
+  typecheck:
+    cmd: bun run tsc --noEmit
+    desc: Typecheck
+    sources:
+      - index.ts
+      - tsconfig.json
+      - package.json
+      - ../../src/**/*

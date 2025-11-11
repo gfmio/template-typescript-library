@@ -8,3 +8,9 @@ includes:
     dir: ./basic
     taskfile: ./basic/Taskfile.yml
 
+tasks:
+  typecheck:
+    deps:
+      - task: basic:typecheck
+      - task: advanced:typecheck
+    desc: Typecheck examples
