@@ -79,7 +79,8 @@ coverage
 .nyc_output
 
 # Benchmark results
-benchmarks/results.json
+benchmarks/*.json
+!benchmarks/baseline.json
 
 # Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
@@ -141,6 +142,7 @@ web_modules/
 # Next.js build output
 .next
 out
+!out/.gitkeep
 
 # Nuxt.js build / generate output
 .nuxt
