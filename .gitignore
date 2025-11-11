@@ -226,3 +226,12 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,linux,windows,node
+
+### Devenv ###
+# devenv
+.devenv/
+.devenv.flake.nix
+devenv.local.nix
+
+# direnv
+.direnv/
