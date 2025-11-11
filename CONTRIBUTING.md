@@ -320,16 +320,32 @@ Commits are validated using commitlint. Invalid commit messages will be rejected
 
 ## Release Process
 
-Releases are automated using [Release Please](https://github.com/googleapis/release-please):
+Releases are automated using [Release Please](https://github.com/googleapis/release-please) and npm Trusted Publishers:
 
 1. Make changes following conventional commits
 2. Release Please creates/updates a release PR automatically
 3. When the release PR is merged, it:
    - Creates a GitHub release
-   - Publishes to npm automatically
+   - Triggers the publish workflow
+   - Publishes to npm automatically via Trusted Publishers (no tokens needed!)
    - Updates CHANGELOG.md
 
 You don't need to manually bump versions or create releases.
+
+### Publishing Setup for Maintainers
+
+If you're setting up publishing for the first time or forking this template, see the detailed [Publishing Setup Guide](./docs/publishing-setup.md) which covers:
+
+- Configuring npm Trusted Publishers for secure, token-free publishing
+- Setting up GitHub Environments for approval workflows
+- Testing the publishing pipeline
+- Troubleshooting common issues
+
+**Key benefits:**
+- ✅ No npm tokens to manage or risk leaking
+- ✅ Build provenance for transparent supply chain
+- ✅ Optional approval workflows before publishing
+- ✅ Secure OpenID Connect (OIDC) authentication
 
 ## Automated Maintenance
 

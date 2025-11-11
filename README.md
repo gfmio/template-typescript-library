@@ -48,6 +48,7 @@ console.log(calc.add(5, 3)); // 8
 - [API Reference](https://github.com/gfmio/template-typescript-library#api) - Full API documentation
 - [Examples](./examples) - Usage examples and demos
 - [Publishing Guide](./docs/publishing.md) - How the clean publishing strategy works
+- [Publishing Setup](./docs/publishing-setup.md) - Configure Trusted Publishers for secure npm publishing
 
 ## Development
 

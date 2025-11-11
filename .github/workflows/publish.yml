@@ -8,6 +8,8 @@ jobs:
   publish:
     name: Publish to NPM
     runs-on: ubuntu-latest
+    environment:
+      name: npm
     permissions:
       contents: read
       id-token: write
@@ -45,13 +47,6 @@ jobs:
       - name: Build
         run: devenv shell task build
 
-      - name: Setup Node.js for NPM
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          registry-url: 'https://registry.npmjs.org'
-
       - name: Publish to NPM
-        run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx npm@latest publish --provenance --access public
+        working-directory: ./out/build
