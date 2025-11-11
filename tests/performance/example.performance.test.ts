@@ -93,7 +93,6 @@ describe('Performance Tests', () => {
 
     it('should not degrade with sequential operations', () => {
       const calc = new Calculator();
-      const operations = 10000;
 
       // Measure first 1000 operations
       const start1 = performance.now();
