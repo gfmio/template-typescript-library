@@ -1,0 +1,7 @@
+version: "3"
+
+tasks:
+  default:
+    desc: Run the example
+    cmd: bun run index.ts
+    silent: true
