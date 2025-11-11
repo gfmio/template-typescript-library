@@ -8,6 +8,7 @@
     "devenv",
     "direnv",
     "gfmio",
+    "lefthook",
     "markdownlint",
     "nixos",
     "nixpkgs",

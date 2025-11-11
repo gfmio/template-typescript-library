@@ -6,8 +6,9 @@ tasks:
   setup:
     desc: Set up the project
     cmds:
-      - task: logical-deps:deps:install
-      - task: tools-tsc:typecheck
-      - task: logical-build:build
-      - task: logical-lint:lint:check
-      - task: logical-test:test:coverage
+      - task: deps:install
+      - task: lefthook:install
+      - task: typecheck
+      - task: build
+      - task: lint:check
+      - task: test:coverage

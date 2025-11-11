@@ -83,6 +83,9 @@ includes:
   tools-shfmt:
     taskfile: ./tasks/tools/shfmt.yml
     flatten: true
+  tools-lefthook:
+    taskfile: ./tasks/tools/lefthook.yml
+    flatten: true
   tools-act:
     taskfile: ./tasks/tools/act.yml
     flatten: true

@@ -1,0 +1,85 @@
+# Lefthook configuration for Git hooks
+# Documentation: https://github.com/evilmartians/lefthook
+# https://lefthook.dev/configuration/
+
+# Minimum version of lefthook required
+min_version: 2.0.0
+
+# Output settings
+output:
+  - summary
+  - execution
+
+# Pre-commit hook: Run fast checks before committing
+pre-commit:
+  parallel: true
+  commands:
+    # Format check (fast feedback on formatting issues)
+    format:
+      glob: "*.{ts,js,json,yml,yaml,md,toml}"
+      run: task format:check
+      stage_fixed: true
+
+    # Lint check (catch code quality issues early)
+    lint:
+      glob: "*.{ts,js,json}"
+      run: task lint:check
+      stage_fixed: true
+
+    # Type check (ensure type safety)
+    typecheck:
+      glob: "*.{ts,js}"
+      run: task typecheck
+
+# Commit-msg hook: Validate commit message format
+commit-msg:
+  commands:
+    # Validate commit message follows conventional commits
+    commitlint:
+      run: task commitlint:edit
+
+# Pre-push hook: Run comprehensive validation before pushing
+pre-push:
+  parallel: false
+  commands:
+    # Run all tests to ensure nothing is broken
+    test:
+      run: task test
+
+    # Build to ensure the library compiles successfully
+    build:
+      run: task build
+
+    # Run full CI validation (comprehensive check)
+    validate:
+      run: task validate
+
+# Post-checkout hook: Remind to install dependencies if needed
+post-checkout:
+  commands:
+    # Check if package.json or bun.lock changed
+    check-deps:
+      run: |
+        if git diff --name-only HEAD@{1} HEAD | grep -qE 'package.json|bun.lock'; then
+          echo "📦 Dependencies may have changed. Run 'task install' to update."
+        fi
+
+# Post-merge hook: Remind to install dependencies after merging
+post-merge:
+  commands:
+    # Check if package.json or bun.lock changed
+    check-deps:
+      run: |
+        if git diff --name-only HEAD@{1} HEAD | grep -qE 'package.json|bun.lock'; then
+          echo "📦 Dependencies may have changed. Run 'task install' to update."
+        fi
+
+# Post-rewrite hook: Handle post-rebase scenarios
+post-rewrite:
+  commands:
+    # Check if package.json or bun.lock changed
+    check-deps:
+      run: |
+        if git diff --name-only HEAD@{1} HEAD | grep -qE 'package.json|bun.lock'; then
+          echo "📦 Dependencies may have changed. Run 'task install' to update."
+        fi

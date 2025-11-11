@@ -1,0 +1,40 @@
+# Taskfile configuration
+# Path: tasks/tools/lefthook.yml
+
+version: "3"
+tasks:
+  lefthook:install:
+    desc: Install lefthook git hooks
+    cmds:
+      - bunx lefthook install
+  lefthook:uninstall:
+    desc: Uninstall lefthook git hooks
+    cmds:
+      - bunx lefthook uninstall
+  lefthook:run:
+    desc: Run a specific lefthook hook
+    cmds:
+      - bunx lefthook run {{.HOOK}}
+    requires:
+      vars:
+        - HOOK
+  lefthook:run:pre-commit:
+    desc: Run pre-commit hook manually
+    cmds:
+      - bunx lefthook run pre-commit
+  lefthook:run:commit-msg:
+    desc: Run commit-msg hook manually
+    cmds:
+      - bunx lefthook run commit-msg
+  lefthook:run:pre-push:
+    desc: Run pre-push hook manually
+    cmds:
+      - bunx lefthook run pre-push
+  lefthook:dump:
+    desc: Dump current lefthook configuration
+    cmds:
+      - bunx lefthook dump
+  lefthook:version:
+    desc: Show lefthook version
+    cmds:
+      - bunx lefthook version
