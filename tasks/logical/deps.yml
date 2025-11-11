@@ -28,3 +28,7 @@ tasks:
     desc: Clean dependencies
     cmds:
       - rm -rf node_modules
+  deps:audit:
+    desc: Audit dependencies for security vulnerabilities
+    cmds:
+      - bun audit
