@@ -14,7 +14,9 @@ A production-ready template for TypeScript libraries with modern tooling and bes
 - 🎨 **Code Quality** - [Biome](https://biomejs.dev/) for fast linting and formatting
 - 🔄 **CI/CD** - GitHub Actions with automated releases via [Release Please](https://github.com/googleapis/release-please)
 - 📦 **Clean Publishing** - Optimized package structure with minimal bundle size
-- 🛠️ **Developer Experience** - Task automation, pre-commit hooks, and comprehensive tooling
+- 🤖 **Automated Maintenance** - [Renovate](https://github.com/renovatebot/renovate) for dependency updates
+- 🔒 **Security** - [CodeQL](https://codeql.github.com/) scanning and security policies
+- 🛠️ **Developer Experience** - [Task](https://taskfile.dev/) automation, [devenv](https://devenv.sh/), pre-commit hooks, and comprehensive tooling
 
 ## Installation
 
@@ -75,6 +77,20 @@ task docs:vitepress:dev  # Start documentation dev server
 See all available commands: `task --list-all`
 
 For detailed development instructions, see [CONTRIBUTING.md](./CONTRIBUTING.md).
+
+### Automated Maintenance
+
+This repository uses [Renovate](https://github.com/renovatebot/renovate) for automated dependency updates. To enable it:
+
+1. Install the [Renovate GitHub App](https://github.com/apps/renovate) on your repository
+2. Renovate will automatically create PRs for dependency updates based on the configuration in [.github/renovate.json](.github/renovate.json)
+
+### Repository Configuration
+
+This repository includes automated configuration via [.github/settings.yml](.github/settings.yml). To use it:
+
+1. Install the [Probot Settings App](https://github.com/apps/settings) (optional)
+2. Or configure these settings manually in your GitHub repository settings
 
 ## Project Structure
 

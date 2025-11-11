@@ -331,6 +331,76 @@ Releases are automated using [Release Please](https://github.com/googleapis/rele
 
 You don't need to manually bump versions or create releases.
 
+## Automated Maintenance
+
+### Dependency Updates with Renovate
+
+This repository uses [Renovate](https://github.com/renovatebot/renovate) for automated dependency updates:
+
+**Setup:**
+1. Install the [Renovate GitHub App](https://github.com/apps/renovate) on your repository
+2. Renovate reads the configuration from [.github/renovate.json](.github/renovate.json)
+3. Dependency update PRs are created automatically
+
+**How it works:**
+- **Schedule**: Renovate runs weekly (Monday before 6am UTC)
+- **Grouping**: Updates are grouped by tool/framework (e.g., all Biome packages together)
+- **Auto-merge**: Minor and patch updates are auto-merged if CI passes
+- **Major updates**: Require manual approval via the dependency dashboard
+
+**Reviewing Renovate PRs:**
+1. Check the PR description for changelog and release notes
+2. Review the CI check results
+3. Test locally if needed: `git fetch origin pull/ID/head:renovate-branch && git checkout renovate-branch`
+4. For auto-merge PRs, CI will merge automatically if all checks pass
+5. For manual PRs, approve and merge once satisfied
+
+**Dashboard:**
+- View all pending updates in the [Dependency Dashboard](../../issues?q=is%3Aissue+is%3Aopen+label%3Arenovate) issue
+- Check boxes to create PRs immediately for specific updates
+
+### Repository Configuration
+
+This repository includes automated settings management via [.github/settings.yml](.github/settings.yml):
+
+**Option 1: Probot Settings App (Recommended)**
+1. Install the [Probot Settings App](https://github.com/apps/settings)
+2. The app will automatically apply settings from `.github/settings.yml`
+3. Settings are kept in sync automatically
+
+**Option 2: Manual Configuration**
+If you prefer not to use the Probot app, manually configure these settings in your GitHub repository:
+- Branch protection rules (Settings → Branches)
+- Repository settings (Settings → General)
+- Labels (Issues → Labels)
+- Milestones (Issues → Milestones)
+
+**What's configured:**
+- Branch protection for `main` (requires PR reviews, status checks)
+- Merge strategies (squash and rebase only)
+- Auto-delete branches on merge
+- Security settings (vulnerability alerts, automated fixes)
+- Issue labels and milestones
+- Repository features (issues, wikis, projects)
+
+### Security Scanning
+
+This repository uses [CodeQL](https://codeql.github.com/) for automated security analysis:
+
+**How it works:**
+- Runs on every push to `main` and on all pull requests
+- Weekly scheduled scan (Monday at 6:00 AM UTC)
+- Analyzes JavaScript/TypeScript code for security vulnerabilities
+- Results appear in the Security tab → Code scanning alerts
+
+**What to do if CodeQL finds issues:**
+1. Review the alert in the Security tab
+2. Click on the alert to see the code path and explanation
+3. Fix the vulnerability in your code
+4. The alert will automatically close when the fix is merged
+
+For security vulnerabilities, see [SECURITY.md](./SECURITY.md) for our responsible disclosure process.
+
 ## Tooling Reference
 
 ### Biome
