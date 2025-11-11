@@ -1,0 +1,17 @@
+# Taskfile configuration
+# Path: tasks/tools/shellcheck.yml
+
+version: "3"
+
+tasks:
+  shellcheck:check:
+    desc: Check shell scripts with shellcheck
+    aliases:
+      - shellcheck
+    cmds:
+      - shellcheck --format=gcc scripts/**/*.sh
+
+  shellcheck:check:verbose:
+    desc: Check shell scripts with verbose output
+    cmds:
+      - shellcheck scripts/**/*.sh

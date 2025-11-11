@@ -74,6 +74,12 @@ includes:
   tools-shell:
     taskfile: ./tasks/tools/shell.yml
     flatten: true
+  tools-shellcheck:
+    taskfile: ./tasks/tools/shellcheck.yml
+    flatten: true
+  tools-shfmt:
+    taskfile: ./tasks/tools/shfmt.yml
+    flatten: true
   logical-deps:
     taskfile: ./tasks/logical/deps.yml
     flatten: true

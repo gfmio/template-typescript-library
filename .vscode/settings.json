@@ -34,8 +34,8 @@
     "editor.formatOnSave": true
   },
   "[shellscript]": {
-    "editor.defaultFormatter": null,
-    "editor.formatOnSave": false
+    "editor.defaultFormatter": "foxundermoon.shell-format",
+    "editor.formatOnSave": true
   },
   "[toml]": {
     "editor.defaultFormatter": "tamasfe.even-better-toml",
@@ -82,6 +82,8 @@
     "markdownlint",
     "nixos",
     "nixpkgs",
+    "shellcheck",
+    "shfmt",
     "taplo",
     "taskfile",
     "toml",
@@ -267,6 +269,13 @@
   "yaml.format.enable": true,
   "yaml.format.printWidth": 100,
   "yaml.format.singleQuote": false,
+
+  // ===========================
+  // Shell Script Settings
+  // ===========================
+  "shellcheck.enable": true,
+  "shellcheck.run": "onType",
+  "shellformat.flag": "-i 2 -ci -sr -bn",
 
   // ===========================
   // YAML Settings

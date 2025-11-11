@@ -11,6 +11,7 @@ tasks:
       - task: markdownlint:check
       - task: yamllint:check
       - task: taplo:check
+      - task: shfmt:check
   format:fix:
     desc: Fix all formatting
     aliases:
@@ -21,6 +22,7 @@ tasks:
       - task: prettier:write
       - task: markdownlint:fix
       - task: taplo:format
+      - task: shfmt:format
   format:check:watch:
     desc: Check formatting in watch mode
     cmds:

@@ -1,0 +1,15 @@
+# ShellCheck configuration
+# See: https://github.com/koalaman/shellcheck/wiki/Directive
+
+# Use bash dialect by default
+shell=bash
+
+# Enable all optional checks
+enable=all
+
+# Set severity threshold (error, warning, info, style)
+severity=style
+
+# Disable specific checks if needed (uncomment to use)
+# disable=SC2034  # Unused variables
+# disable=SC2086  # Double quote to prevent globbing and word splitting

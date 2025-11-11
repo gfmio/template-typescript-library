@@ -16,6 +16,8 @@
     # Linters and formatters
     yamllint
     taplo
+    shellcheck
+    shfmt
 
     # Git tooling
     git

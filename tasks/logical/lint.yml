@@ -10,6 +10,7 @@ tasks:
     cmds:
       - task: biome:check
       - task: eslint:check
+      - task: shellcheck:check
   lint:fix:
     desc: Fix all linting issues
     aliases:

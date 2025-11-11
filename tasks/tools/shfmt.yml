@@ -1,0 +1,25 @@
+# Taskfile configuration
+# Path: tasks/tools/shfmt.yml
+
+version: "3"
+
+tasks:
+  shfmt:check:
+    desc: Check shell script formatting
+    aliases:
+      - shfmt
+    cmds:
+      - shfmt -d -i 2 -ci -sr -bn scripts/
+
+  shfmt:format:
+    desc: Format shell scripts
+    aliases:
+      - shfmt:fix
+      - shfmt:write
+    cmds:
+      - shfmt -w -i 2 -ci -sr -bn scripts/
+
+  shfmt:check:verbose:
+    desc: Check shell script formatting with verbose output
+    cmds:
+      - shfmt -d -i 2 -ci -sr -bn scripts/
