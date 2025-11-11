@@ -15,3 +15,12 @@ tasks:
     cmds:
       - task: tsup:watch
     watch: true
+  build:analyze:
+    desc: Build and analyze bundle size
+    cmds:
+      - task: build
+      - bun run scripts/analyze-bundle.ts
+  build:size:
+    desc: Show bundle size without rebuilding
+    cmds:
+      - bun run scripts/analyze-bundle.ts
