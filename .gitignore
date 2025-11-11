@@ -238,3 +238,6 @@ devenv.local.nix
 
 # task
 .task/
+
+# Scratch directory for local development
+.scratch/
