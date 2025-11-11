@@ -12,7 +12,16 @@ This project adheres to the Contributor Covenant [Code of Conduct](CODE_OF_CONDU
 
 This project uses [devenv](https://devenv.sh/) with [direnv](https://direnv.net/) to manage development dependencies. This approach ensures all tooling (yamllint, taplo, Task, etc.) is automatically available without manual installation.
 
-#### Option 1: Using devenv + direnv (Recommended)
+#### Option 1: Dev Container / GitHub Codespaces (Easiest)
+
+Use a pre-configured development container with everything set up:
+
+- **VS Code**: Install [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers), then open the project and click "Reopen in Container"
+- **GitHub Codespaces**: Click "Code" → "Codespaces" → "Create codespace on main"
+
+All dependencies are automatically installed and configured. See [.devcontainer/README.md](.devcontainer/README.md) for details.
+
+#### Option 2: Using devenv + direnv (Recommended for local development)
 
 1. **Install Nix**: Follow instructions at [nixos.org](https://nixos.org/download.html)
 2. **Install devenv**: Follow instructions at [devenv.sh](https://devenv.sh/getting-started/)
@@ -25,7 +34,7 @@ This project uses [devenv](https://devenv.sh/) with [direnv](https://direnv.net/
 
 With this setup, all dependencies (Bun, Task, yamllint, taplo, etc.) will be automatically available when you `cd` into the project directory.
 
-#### Option 2: Manual Installation
+#### Option 3: Manual Installation
 
 If you prefer not to use devenv/direnv, install these manually:
 
