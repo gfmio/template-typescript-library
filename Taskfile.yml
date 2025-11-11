@@ -68,6 +68,9 @@ includes:
   tools-taplo:
     taskfile: ./tasks/tools/taplo.yml
     flatten: true
+  tools-commitlint:
+    taskfile: ./tasks/tools/commitlint.yml
+    flatten: true
   tools-shell:
     taskfile: ./tasks/tools/shell.yml
     flatten: true
