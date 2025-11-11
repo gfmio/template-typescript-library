@@ -1,0 +1,56 @@
+labels: ["showcase"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🎉 Show and Tell
+
+        Built something cool with this library? Share it with the community!
+
+  - type: textarea
+    id: project
+    attributes:
+      label: Project Name and Description
+      description: Tell us about your project
+      placeholder: |
+        **Project Name:** My Awesome Project
+        **Description:** A brief description of what your project does
+    validations:
+      required: true
+
+  - type: textarea
+    id: link
+    attributes:
+      label: Link
+      description: Share a link to your project (GitHub, website, demo, etc.)
+      placeholder: https://github.com/username/project
+    validations:
+      required: false
+
+  - type: textarea
+    id: features
+    attributes:
+      label: Features & Highlights
+      description: What are the key features or highlights of your project?
+      placeholder: |
+        - Feature 1
+        - Feature 2
+        - Feature 3
+    validations:
+      required: false
+
+  - type: textarea
+    id: learnings
+    attributes:
+      label: What You Learned
+      description: Share any insights or lessons learned while building this
+    validations:
+      required: false
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots / Demo
+      description: Add screenshots or links to demos (drag and drop images here)
+    validations:
+      required: false

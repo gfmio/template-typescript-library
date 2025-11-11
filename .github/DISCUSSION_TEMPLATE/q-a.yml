@@ -1,0 +1,46 @@
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ❓ Ask a Question
+
+        Have a question about using this library? Ask away!
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      description: Please check the following before asking
+      options:
+        - label: I have checked the [documentation](https://gfmio.github.io/template-typescript-library/)
+          required: true
+        - label: I have searched for [existing discussions](https://github.com/gfmio/template-typescript-library/discussions)
+          required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: What would you like to know?
+      placeholder: How do I...?
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Provide any relevant context (what you're trying to achieve, what you've tried, etc.)
+      placeholder: I'm trying to... and I've tried...
+    validations:
+      required: false
+
+  - type: textarea
+    id: code
+    attributes:
+      label: Code Example
+      description: If applicable, provide a code example
+      render: typescript
+    validations:
+      required: false
