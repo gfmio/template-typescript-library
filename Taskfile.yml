@@ -131,6 +131,9 @@ includes:
   logical-setup:
     taskfile: ./tasks/logical/setup.yml
     flatten: true
+  logical-typecheck:
+    taskfile: ./tasks/logical/typecheck.yml
+    flatten: true
 tasks:
   default:
     desc: Show all available tasks

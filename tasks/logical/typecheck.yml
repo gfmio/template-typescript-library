@@ -1,0 +1,246 @@
+# Taskfile configuration
+# Path: tasks/logical/typecheck-compat.yml
+
+version: "3"
+tasks:
+  typecheck:
+    desc: Run type checking
+    cmd:
+      task: tsc:check
+    sources:
+      - "{{.SRC_TS_FILES}}"
+      - "{{.SRC_TSX_FILES}}"
+      - "{{.TS_CONFIG}}"
+  typecheck:watch:
+    desc: Run type checking in watch mode
+    cmd:
+      task: tsc:check:watch
+    sources:
+      - "{{.SRC_TS_FILES}}"
+      - "{{.SRC_TSX_FILES}}"
+      - "{{.TS_CONFIG}}"
+  typecheck:compat:
+    desc: Test TypeScript compatibility across versions (usage - task typecheck:compat -- 5.7 5.8 5.9)
+    summary: |
+      Test TypeScript compatibility across multiple versions.
+
+      Usage:
+        task typecheck:compat -- 5.7 5.8 5.9
+        task typecheck:compat -- 5.9  # Single version
+
+      This task:
+      - Saves the current TypeScript version
+      - Tests each specified version
+      - Restores the original version
+      - Does not update the lockfile
+
+      Exit codes:
+      - 0: All versions passed
+      - 1: One or more versions failed
+    cmds:
+      - |
+        set -e
+
+        # Check if versions were provided
+        if [ -z "{{.CLI_ARGS}}" ]; then
+          echo "❌ Error: No TypeScript versions specified"
+          echo "Usage: task typecheck:compat -- 5.7 5.8 5.9"
+          exit 1
+        fi
+
+        # Save current TypeScript version
+        ORIGINAL_VERSION=$(node -p "require('./package.json').devDependencies.typescript")
+        echo "📦 Current TypeScript version: $ORIGINAL_VERSION"
+        echo ""
+
+        # Create backup of package.json and lockfile
+        cp package.json package.json.backup
+        cp bun.lockb bun.lockb.backup 2>/dev/null || true
+
+        # Track failures
+        FAILED_VERSIONS=""
+        SUCCESS_COUNT=0
+        TOTAL_COUNT=0
+
+        # Test each version
+        for VERSION in {{.CLI_ARGS}}; do
+          TOTAL_COUNT=$((TOTAL_COUNT + 1))
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🔍 Testing TypeScript $VERSION"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+          # Install specific version without updating lockfile
+          if bun add -D typescript@$VERSION 2>&1 | grep -q "error"; then
+            echo "❌ Failed to install TypeScript $VERSION"
+            FAILED_VERSIONS="$FAILED_VERSIONS $VERSION"
+
+            # Restore files
+            mv package.json.backup package.json
+            mv bun.lockb.backup bun.lockb 2>/dev/null || true
+            continue
+          fi
+
+          # Run typecheck
+          echo ""
+          if task tsc:check 2>&1; then
+            echo ""
+            echo "✅ TypeScript $VERSION - PASSED"
+            SUCCESS_COUNT=$((SUCCESS_COUNT + 1))
+          else
+            echo ""
+            echo "❌ TypeScript $VERSION - FAILED"
+            FAILED_VERSIONS="$FAILED_VERSIONS $VERSION"
+          fi
+
+          echo ""
+
+          # Restore files after each test
+          mv package.json.backup package.json
+          cp package.json package.json.backup
+          mv bun.lockb.backup bun.lockb 2>/dev/null || true
+          cp bun.lockb bun.lockb.backup 2>/dev/null || true
+        done
+
+        # Cleanup backup files
+        rm -f package.json.backup bun.lockb.backup
+
+        # Print summary
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        echo "📊 TypeScript Compatibility Test Results"
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        echo ""
+        echo "Tested versions: {{.CLI_ARGS}}"
+        echo "Original version: $ORIGINAL_VERSION"
+        echo ""
+        echo "Results: $SUCCESS_COUNT/$TOTAL_COUNT passed"
+
+        if [ -n "$FAILED_VERSIONS" ]; then
+          echo ""
+          echo "❌ Failed versions:$FAILED_VERSIONS"
+          echo ""
+          exit 1
+        else
+          echo ""
+          echo "✅ All TypeScript versions are compatible!"
+          echo ""
+        fi
+    sources:
+      - "{{.SRC_TS_FILES}}"
+      - "{{.TS_CONFIG}}"
+      - package.json
+
+  typecheck:compat:ci:
+    desc: Test TypeScript compatibility in CI (usage - task typecheck:compat:ci -- 5.7 5.8 5.9)
+    summary: |
+      CI-friendly version of typecheck:compat.
+
+      Usage:
+        task typecheck:compat:ci -- 5.7 5.8 5.9
+
+      Differences from typecheck:compat:
+      - More verbose output
+      - Fails fast on first error (optional)
+      - Better suited for CI environments
+    cmds:
+      - |
+        set -e
+
+        # Check if versions were provided
+        if [ -z "{{.CLI_ARGS}}" ]; then
+          echo "❌ Error: No TypeScript versions specified"
+          echo "Usage: task typecheck:compat:ci -- 5.7 5.8 5.9"
+          exit 1
+        fi
+
+        # Save current TypeScript version
+        ORIGINAL_VERSION=$(node -p "require('./package.json').devDependencies.typescript")
+        echo "::group::TypeScript Compatibility Testing"
+        echo "📦 Current TypeScript version: $ORIGINAL_VERSION"
+        echo "🔍 Testing versions: {{.CLI_ARGS}}"
+        echo "::endgroup::"
+        echo ""
+
+        # Create backup of package.json and lockfile
+        cp package.json package.json.backup
+        cp bun.lockb bun.lockb.backup 2>/dev/null || true
+
+        # Track results
+        FAILED_VERSIONS=""
+        SUCCESS_COUNT=0
+        TOTAL_COUNT=0
+
+        # Test each version
+        for VERSION in {{.CLI_ARGS}}; do
+          TOTAL_COUNT=$((TOTAL_COUNT + 1))
+
+          echo "::group::Testing TypeScript $VERSION"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🔍 TypeScript $VERSION"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+          # Install specific version
+          echo "📥 Installing TypeScript $VERSION..."
+          if ! bun add -D typescript@$VERSION 2>&1; then
+            echo "❌ Failed to install TypeScript $VERSION"
+            echo "::endgroup::"
+            FAILED_VERSIONS="$FAILED_VERSIONS $VERSION"
+
+            # Restore files
+            mv package.json.backup package.json
+            mv bun.lockb.backup bun.lockb 2>/dev/null || true
+            continue
+          fi
+
+          # Run typecheck
+          echo ""
+          echo "🔎 Running type check..."
+          if task tsc:check 2>&1; then
+            echo ""
+            echo "✅ TypeScript $VERSION - PASSED"
+            SUCCESS_COUNT=$((SUCCESS_COUNT + 1))
+            echo "::endgroup::"
+          else
+            echo ""
+            echo "❌ TypeScript $VERSION - FAILED"
+            echo "::endgroup::"
+            echo "::error::TypeScript $VERSION type check failed"
+            FAILED_VERSIONS="$FAILED_VERSIONS $VERSION"
+          fi
+
+          # Restore files after each test
+          mv package.json.backup package.json
+          cp package.json package.json.backup
+          mv bun.lockb.backup bun.lockb 2>/dev/null || true
+          cp bun.lockb bun.lockb.backup 2>/dev/null || true
+        done
+
+        # Cleanup backup files
+        rm -f package.json.backup bun.lockb.backup
+
+        # Print summary
+        echo ""
+        echo "::group::Summary"
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        echo "📊 TypeScript Compatibility Test Results"
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        echo ""
+        echo "Tested versions: {{.CLI_ARGS}}"
+        echo "Original version: $ORIGINAL_VERSION"
+        echo ""
+        echo "✅ Passed: $SUCCESS_COUNT/$TOTAL_COUNT"
+
+        if [ -n "$FAILED_VERSIONS" ]; then
+          echo "❌ Failed:$FAILED_VERSIONS"
+          echo "::endgroup::"
+          echo ""
+          exit 1
+        else
+          echo ""
+          echo "✅ All TypeScript versions are compatible!"
+          echo "::endgroup::"
+          echo ""
+        fi
+    sources:
+      - "{{.SRC_TS_FILES}}"
+      - "{{.TS_CONFIG}}"
+      - package.json

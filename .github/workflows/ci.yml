@@ -50,6 +50,16 @@ jobs:
         id: typecheck
         continue-on-error: true
         run: devenv shell task ci:typecheck
+        # Alternatively: Check TypeScript version compatibility by typechecking
+        # against multiple TypeScript versions
+        # run: |
+        #   devenv shell task typecheck:compat:ci -- 5.7 5.8 5.9
+        #   if git diff --exit-code bun.lockb; then
+        #     echo "✅ Lockfile unchanged"
+        #   else
+        #     echo "❌ Lockfile was modified"
+        #     exit 1
+        #   fi
 
       - name: Lint
         id: lint

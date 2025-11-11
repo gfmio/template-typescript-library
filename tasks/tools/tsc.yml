@@ -11,24 +11,8 @@ tasks:
       - "{{.SRC_TS_FILES}}"
       - "{{.SRC_TSX_FILES}}"
       - "{{.TS_CONFIG}}"
-  tsc:watch:
+  tsc:check:watch:
     desc: Type check in watch mode
-    cmds:
-      - bun run tsc --noEmit --watch
-    sources:
-      - "{{.SRC_TS_FILES}}"
-      - "{{.SRC_TSX_FILES}}"
-      - "{{.TS_CONFIG}}"
-  typecheck:
-    desc: Run type checking
-    cmds:
-      - bun run tsc --noEmit
-    sources:
-      - "{{.SRC_TS_FILES}}"
-      - "{{.SRC_TSX_FILES}}"
-      - "{{.TS_CONFIG}}"
-  typecheck:watch:
-    desc: Run type checking in watch mode
     cmds:
       - bun run tsc --noEmit --watch
     sources:
