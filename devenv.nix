@@ -21,6 +21,9 @@
 
     # Git tooling
     git
+
+    # GitHub Actions local runner
+    act
   ];
 
   # https://devenv.sh/languages/

@@ -1,0 +1,57 @@
+# Taskfile configuration
+# Path: tasks/tools/act.yml
+
+version: "3"
+tasks:
+  act:list:
+    desc: List available GitHub Actions workflows
+    cmds:
+      - act --list
+  act:ci:
+    desc: Run the CI workflow locally with act
+    cmds:
+      - act -W .github/workflows/ci.yml
+  act:ci:dryrun:
+    desc: Run the CI workflow in dry-run mode (show what would run)
+    cmds:
+      - act -W .github/workflows/ci.yml --dryrun
+  act:ci:job:
+    desc: Run a specific job from the CI workflow
+    cmds:
+      - act -W .github/workflows/ci.yml -j {{.CLI_ARGS}}
+  act:docs:
+    desc: Run the docs workflow locally with act
+    cmds:
+      - act -W .github/workflows/docs.yml
+  act:docs:dryrun:
+    desc: Run the docs workflow in dry-run mode
+    cmds:
+      - act -W .github/workflows/docs.yml --dryrun
+  act:codeql:
+    desc: Run the CodeQL workflow locally with act
+    cmds:
+      - act -W .github/workflows/codeql.yml
+  act:codeql:dryrun:
+    desc: Run the CodeQL workflow in dry-run mode
+    cmds:
+      - act -W .github/workflows/codeql.yml --dryrun
+  act:pull-request:
+    desc: Run workflows triggered by pull_request event
+    cmds:
+      - act pull_request
+  act:push:
+    desc: Run workflows triggered by push event
+    cmds:
+      - act push
+  act:workflow:
+    desc: Run a specific workflow file (usage - task act:workflow -- .github/workflows/ci.yml)
+    cmds:
+      - act -W {{.CLI_ARGS}}
+  act:workflow:dryrun:
+    desc: Run a specific workflow file in dry-run mode
+    cmds:
+      - act -W {{.CLI_ARGS}} --dryrun
+  act:graph:
+    desc: Display workflow graph for visualization
+    cmds:
+      - act --graph
