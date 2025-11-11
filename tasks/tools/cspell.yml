@@ -10,8 +10,23 @@ tasks:
       - cspell
     cmds:
       - bun run cspell "**" --no-progress --no-summary
+    sources:
+      - "**"
+      - ".cspell.json"
 
   cspell:check:verbose:
     desc: Check spelling with verbose output
     cmds:
       - bun run cspell "**"
+    sources:
+      - "**"
+      - ".cspell.json"
+
+  cspell:check:watch:
+    desc: Check spelling in watch mode
+    cmds:
+      - task: cspell:check
+    sources:
+      - "**"
+      - ".cspell.json"
+    watch: true
