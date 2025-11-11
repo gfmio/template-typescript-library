@@ -19,3 +19,21 @@ tasks:
       - "**/*.md"
       - ".markdownlint.json"
       - ".markdownlint-cli2.jsonc"
+  markdownlint:check:watch:
+    desc: Lint Markdown files in watch mode
+    cmds:
+      - task: markdownlint:check
+    sources:
+      - "**/*.md"
+      - ".markdownlint.json"
+      - ".markdownlint-cli2.jsonc"
+    watch: true
+  markdownlint:fix:watch:
+    desc: Lint and fix Markdown files in watch mode
+    cmds:
+      - task: markdownlint:fix
+    sources:
+      - "**/*.md"
+      - ".markdownlint.json"
+      - ".markdownlint-cli2.jsonc"
+    watch: true
