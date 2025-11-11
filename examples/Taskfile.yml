@@ -1,0 +1,10 @@
+version: "3"
+
+includes:
+  advanced:
+    dir: ./advanced
+    taskfile: ./advanced/Taskfile.yml
+  basic:
+    dir: ./basic
+    taskfile: ./basic/Taskfile.yml
+
