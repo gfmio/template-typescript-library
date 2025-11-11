@@ -1,0 +1,135 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  ci:
+    name: Lint, Build and Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      - name: Install devenv.sh
+        run: nix profile install nixpkgs#devenv
+
+      - name: Cache Task checksums
+        uses: actions/cache@v4
+        with:
+          path: .task
+          key: ${{ runner.os }}-task-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-task-
+
+      - name: Cache Bun dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-
+
+      - name: Install dependencies
+        id: install
+        run: devenv shell task ci:install
+
+      - name: Type check
+        id: typecheck
+        continue-on-error: true
+        run: devenv shell task ci:typecheck
+
+      - name: Lint
+        id: lint
+        continue-on-error: true
+        run: devenv shell task ci:lint
+
+      - name: Format check
+        id: format
+        continue-on-error: true
+        run: devenv shell task ci:format
+
+      - name: Build
+        id: build
+        continue-on-error: true
+        run: devenv shell task ci:build
+
+      - name: Test
+        id: test
+        continue-on-error: true
+        run: devenv shell task ci:test
+
+      - name: Upload coverage reports
+        uses: codecov/codecov-action@v4
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        with:
+          files: ./coverage/coverage-final.json
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+
+      - name: Run examples
+        id: examples
+        continue-on-error: true
+        run: devenv shell task ci:examples
+
+      - name: Build documentation
+        id: docs
+        continue-on-error: true
+        run: devenv shell task ci:docs
+
+      - name: Lint PR title
+        id: commitlint-pr
+        if: github.event_name == 'pull_request'
+        continue-on-error: true
+        run: devenv shell task ci:commitlint:pr
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+
+      - name: Lint commit messages
+        id: commitlint
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        continue-on-error: true
+        run: devenv shell task ci:commitlint
+
+      - name: Check CI status
+        run: |
+          echo "CI Steps Status:"
+          echo "  Install: ${{ steps.install.outcome }}"
+          echo "  Type check: ${{ steps.typecheck.outcome }}"
+          echo "  Lint: ${{ steps.lint.outcome }}"
+          echo "  Format: ${{ steps.format.outcome }}"
+          echo "  Build: ${{ steps.build.outcome }}"
+          echo "  Test: ${{ steps.test.outcome }}"
+          echo "  Examples: ${{ steps.examples.outcome }}"
+          echo "  Docs: ${{ steps.docs.outcome }}"
+          echo "  Commitlint PR: ${{ steps.commitlint-pr.outcome }}"
+          echo "  Commitlint: ${{ steps.commitlint.outcome }}"
+
+          if [[ "${{ steps.install.outcome }}" == "failure" ]] || \
+             [[ "${{ steps.typecheck.outcome }}" == "failure" ]] || \
+             [[ "${{ steps.lint.outcome }}" == "failure" ]] || \
+             [[ "${{ steps.format.outcome }}" == "failure" ]] || \
+             [[ "${{ steps.build.outcome }}" == "failure" ]] || \
+             [[ "${{ steps.test.outcome }}" == "failure" ]] || \
+             [[ "${{ steps.examples.outcome }}" == "failure" ]] || \
+             [[ "${{ steps.docs.outcome }}" == "failure" ]] || \
+             [[ "${{ steps.commitlint-pr.outcome }}" == "failure" ]] || \
+             [[ "${{ steps.commitlint.outcome }}" == "failure" ]]; then
+            echo "❌ One or more CI checks failed"
+            exit 1
+          else
+            echo "✅ All CI checks passed"
+          fi
