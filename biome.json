@@ -3,5 +3,16 @@
   "extends": [
     "@gfmio/config-biome/biome.json"
   ],
-  "root": true
+  "root": true,
+  "overrides": [
+    {
+      "includes": [".devcontainer/devcontainer.json"],
+      "json": {
+        "parser": {
+          "allowComments": true,
+          "allowTrailingCommas": true
+        }
+      }
+    }
+  ]
 }
