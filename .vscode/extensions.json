@@ -1,0 +1,42 @@
+{
+  "recommendations": [
+    // Language support
+    "biomejs.biome",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+
+    // Markdown
+    "davidanson.vscode-markdownlint",
+    "yzhang.markdown-all-in-one",
+
+    // YAML/TOML
+    "redhat.vscode-yaml",
+    "tamasfe.even-better-toml",
+
+    // Documentation
+    "vue.volar",
+
+    // Testing
+    "vitest.explorer",
+
+    // Task automation
+    "task.vscode-task",
+
+    // Runtime
+    "oven.bun-vscode",
+
+    // Nix/devenv
+    "jnoortheen.nix-ide",
+
+    // Dev Containers
+    "ms-vscode-remote.remote-containers",
+
+    // Git
+    "github.vscode-pull-request-github",
+    "eamodio.gitlens",
+
+    // Code quality
+    "usernamehw.errorlens",
+    "streetsidesoftware.code-spell-checker"
+  ]
+}
