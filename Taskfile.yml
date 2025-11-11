@@ -89,6 +89,12 @@ includes:
   tools-act:
     taskfile: ./tasks/tools/act.yml
     flatten: true
+  tools-madge:
+    taskfile: ./tasks/tools/madge.yml
+    flatten: true
+  tools-git:
+    taskfile: ./tasks/tools/git.yml
+    flatten: true
   logical-deps:
     taskfile: ./tasks/logical/deps.yml
     flatten: true

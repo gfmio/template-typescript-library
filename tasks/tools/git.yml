@@ -1,0 +1,51 @@
+# Taskfile configuration
+# Path: tasks/tools/git.yml
+
+version: "3"
+tasks:
+  git:stats:
+    desc: Show contribution statistics
+    cmds:
+      - echo "📊 Contribution Statistics"
+      - echo ""
+      - echo "Top Contributors:"
+      - git shortlog -sn --no-merges | head -10
+      - echo ""
+      - echo "Total Contributors:"
+      - git log --format='%aN' | sort -u | wc -l
+      - echo ""
+      - echo "Total Commits:"
+      - git rev-list --count HEAD
+  git:stats:full:
+    desc: Show detailed contribution statistics
+    cmds:
+      - echo "📊 Detailed Contribution Statistics"
+      - echo ""
+      - echo "Commits by Author:"
+      - git shortlog -sn --no-merges
+      - echo ""
+      - echo "Lines Added/Removed by Author:"
+      - git log --format='%aN' --no-merges | sort -u | while read author; do echo "$author:"; git log --author="$author" --pretty=tformat: --numstat | awk '{add+=$1; del+=$2} END {print "  Added:", add, "Removed:", del}'; done
+  git:stats:recent:
+    desc: Show recent activity statistics
+    cmds:
+      - echo "📊 Recent Activity (Last 30 Days)"
+      - echo ""
+      - echo "Commits:"
+      - git log --since="30 days ago" --oneline | wc -l
+      - echo ""
+      - echo "Contributors:"
+      - git log --since="30 days ago" --format='%aN' | sort -u | wc -l
+      - echo ""
+      - echo "Recent Contributors:"
+      - git log --since="30 days ago" --format='%aN' | sort -u
+  git:stats:files:
+    desc: Show file statistics
+    cmds:
+      - echo "📊 File Statistics"
+      - echo ""
+      - echo "Most Changed Files:"
+      - git log --all --pretty=format: --name-only | sort | uniq -c | sort -rg | head -10
+      - echo ""
+      - echo "Largest Files (by commit count):"
+      - git log --all --pretty=format: --name-only | grep -v "^$" | sort | uniq -c | sort -rg | head -10
