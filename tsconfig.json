@@ -1,12 +1,21 @@
 {
   "$schema": "https://www.schemastore.org/tsconfig.json",
   "extends": "@gfmio/tsconfig/library.json",
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"],
+      "@tests/*": ["./tests/*"]
+    }
+  },
   "include": [
-    "src"
+    "src/**/*",
+    "tests/**/*",
+    "benchmarks/**/*",
+    "examples/**/*"
   ],
   "exclude": [
     "node_modules",
     "dist",
-    "examples"
+    "out"
   ]
 }
