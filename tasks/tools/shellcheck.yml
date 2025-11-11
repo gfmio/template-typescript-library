@@ -9,9 +9,39 @@ tasks:
     aliases:
       - shellcheck
     cmds:
-      - shellcheck --format=gcc scripts/**/*.sh
+      - shellcheck --format=gcc **/*.sh
+    sources:
+      - "**/*.sh"
+      - ".shellcheckrc"
 
   shellcheck:check:verbose:
     desc: Check shell scripts with verbose output
+    aliases:
+      - shellcheck:verbose
     cmds:
-      - shellcheck scripts/**/*.sh
+      - shellcheck **/*.sh
+    sources:
+      - "**/*.sh"
+      - ".shellcheckrc"
+
+  shellcheck:check:watch:
+    desc: Check shell scripts in watch mode
+    aliases:
+      - shellcheck:watch
+    cmds:
+      - task: shellcheck:check
+    sources:
+      - "**/*.sh"
+      - ".shellcheckrc"
+    watch: true
+
+  shellcheck:check:verbose:watch:
+    desc: Check shell scripts in watch mode with verbose output
+    aliases:
+      - shellcheck:verbose:watch
+    cmds:
+      - task: shellcheck:check:verbose
+    sources:
+      - "**/*.sh"
+      - ".shellcheckrc"
+    watch: true
