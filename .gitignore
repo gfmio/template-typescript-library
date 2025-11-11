@@ -163,7 +163,7 @@ docs/.vitepress/dist
 docs/.vitepress/cache
 
 # TypeDoc generated documentation
-docs/api
+docs/api/generated/
 
 # Docusaurus cache and generated files
 .docusaurus
