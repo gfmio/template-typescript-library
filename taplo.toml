@@ -1,0 +1,76 @@
+# JavaScript/TypeScript Project Taplo Configuration
+# Optimized for JS/TS projects using TOML for configuration
+#
+# Usage: Copy this file to your project root as `.taplo.toml` or `taplo.toml`
+# Common use cases: Deno projects, Biome config, custom tooling configs
+
+# $schema = {enabled = true, path = "./taplo.json"}
+# Include all TOML files
+include = ["**/*.toml"]
+
+# Exclude JavaScript/TypeScript-specific directories
+exclude = [
+  "node_modules/**", # NPM dependencies (critical to exclude)
+  "dist/**",         # Build output
+  "build/**",        # Build artifacts
+  ".next/**",        # Next.js build
+  ".nuxt/**",        # Nuxt build
+  ".output/**",      # Nitro/Nuxt output
+  "out/**",          # Output directories
+  ".cache/**",       # Cache directories
+  "coverage/**",     # Test coverage
+  ".git/**",         # Git directory
+]
+
+# Default formatting aligned with Prettier/Biome conventions
+[formatting]
+align_entries = false         # Git-friendly
+align_comments = true         # Improve readability
+array_trailing_comma = true   # Match Prettier/Biome style
+array_auto_expand = true      # Expand arrays naturally
+array_auto_collapse = true    # Collapse small arrays
+compact_arrays = true         # Keep small arrays compact
+compact_inline_tables = false # Expand for readability
+compact_entries = false       # Don't compact entries
+indent_tables = false         # TOML standard
+indent_entries = false        # TOML standard
+inline_table_expand = true    # Prevent long lines
+reorder_keys = false          # Preserve key order
+reorder_arrays = false        # Preserve array order
+column_width = 100            # Common in JS/TS projects (match Prettier)
+allowed_blank_lines = 2       # Allow section separation
+trailing_newline = true       # POSIX compliance
+crlf = false                  # Unix line endings (use true for Windows teams)
+
+# Deno configuration
+# Note: Deno projects often use "deno.json" or "deno.jsonc" for configuration.
+# Taplo does not process these files, but they are listed here for reference.
+
+# Biome configuration (if using TOML)
+[[rule]]
+include = ["biome.toml"]
+# Note: Biome typically uses JSON, but TOML is supported
+
+[rule.formatting]
+reorder_keys = false # Preserve configuration section order
+
+# Taplo's own configuration
+[[rule]]
+include = ["**/taplo.toml", "**/.taplo.toml"]
+schema.url = "https://json.schemastore.org/taplo.json"
+schema.enabled = true
+
+# Example: Custom application configuration
+# Common in Node.js projects that prefer TOML over JSON/YAML
+# [[rule]]
+# include = ["config/**/*.toml", "configs/**/*.toml"]
+# [rule.formatting]
+# align_entries = true          # Config files benefit from alignment
+# reorder_keys = true            # Alphabetical keys in config files
+# column_width = 100             # Match project's Prettier config
+
+# Example: Database/service configurations
+# [[rule]]
+# include = ["docker-compose.toml", "railway.toml", "render.toml"]
+# [rule.formatting]
+# align_entries = true          # Service configs benefit from alignment
