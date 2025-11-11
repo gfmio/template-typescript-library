@@ -1,0 +1,138 @@
+# yaml-language-server: $schema=https://www.schemastore.org/yamllint.json
+
+# yamllint Configuration - Strict Preset
+# ========================================
+# Purpose: Strict configuration for new projects with high quality standards
+# Use Case: New projects, libraries, shared configurations
+# Philosophy: Enforce consistency and best practices from the start
+
+extends: default
+
+rules:
+  # Braces: Enforce no spaces inside braces for compact formatting
+  # Good: {key: value}
+  # Bad:  { key: value }
+  braces:
+    min-spaces-inside: 0
+    max-spaces-inside: 0
+    min-spaces-inside-empty: 0
+    max-spaces-inside-empty: 0
+
+  # Brackets: Enforce no spaces inside brackets
+  # Good: [item1, item2]
+  # Bad:  [ item1, item2 ]
+  brackets:
+    min-spaces-inside: 0
+    max-spaces-inside: 0
+    min-spaces-inside-empty: 0
+    max-spaces-inside-empty: 0
+
+  # Colons: Require exactly one space after colons, none before
+  # Good: key: value
+  # Bad:  key:value or key : value
+  colons:
+    max-spaces-before: 0
+    max-spaces-after: 1
+
+  # Commas: Require exactly one space after commas, none before
+  # Good: [a, b, c]
+  # Bad:  [a,b,c] or [a , b , c]
+  commas:
+    max-spaces-before: 0
+    min-spaces-after: 1
+    max-spaces-after: 1
+
+  # Comments: Require proper comment formatting
+  # - At least 1 space after '#'
+  # - At least 2 spaces before inline comments
+  comments:
+    require-starting-space: true
+    min-spaces-from-content: 2
+
+  # Comments Indentation: Comments must align with content
+  comments-indentation: enable
+
+  # Document Start: Require '---' at document start
+  # Explicit document boundaries improve clarity
+  document-start:
+    present: true
+
+  # Document End: '...' is optional but allowed
+  document-end:
+    present: false
+
+  # Empty Lines: Control spacing between elements
+  empty-lines:
+    max: 2
+    max-start: 0
+    max-end: 0
+
+  # Empty Values: Forbid empty values without explicit null
+  # Good: key: null or key: ""
+  # Bad:  key:
+  empty-values:
+    forbid-in-block-mappings: true
+    forbid-in-flow-mappings: true
+
+  # Hyphens: Consistent spacing for list items
+  hyphens:
+    max-spaces-after: 1
+
+  # Indentation: Strict 2-space indentation
+  # Lists are indented relative to parent key
+  indentation:
+    spaces: 2
+    indent-sequences: true
+    check-multi-line-strings: false
+
+  # Key Duplicates: Forbid duplicate keys (YAML spec violation)
+  key-duplicates: enable
+
+  # Key Ordering: Disabled - allows flexible key ordering
+  # Enable if you need alphabetical ordering
+  key-ordering: disable
+
+  # Line Length: Reasonable limit for readability
+  # 120 characters balances readability with modern displays
+  line-length:
+    max: 120
+    allow-non-breakable-words: true
+    allow-non-breakable-inline-mappings: true
+
+  # New Line at End of File: Required for POSIX compliance
+  new-line-at-end-of-file: enable
+
+  # New Lines: Unix-style line endings (LF)
+  new-lines:
+    type: unix
+
+  # Octal Values: Forbid implicit octal notation
+  # Good: 0o644 or "0644"
+  # Bad:  0644
+  octal-values:
+    forbid-implicit-octal: true
+    forbid-explicit-octal: false
+
+  # Quoted Strings: Require quotes only when necessary
+  # Allows both single and double quotes, prefer consistency
+  quoted-strings:
+    quote-type: any
+    required: only-when-needed
+    check-keys: false
+
+  # Trailing Spaces: Forbid trailing whitespace
+  trailing-spaces: enable
+
+  # Truthy Values: Strict boolean values only
+  # Only 'true' and 'false' are allowed (YAML 1.2 style)
+  # Prevents confusion with yes/no, on/off, etc.
+  truthy:
+    allowed-values: ['true', 'false']
+    check-keys: true
+
+# Ignore patterns (uncomment and customize as needed)
+# ignore: |
+#   .github/
+#   node_modules/
+#   venv/
+#   *.generated.yaml
