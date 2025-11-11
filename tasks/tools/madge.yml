@@ -1,0 +1,41 @@
+# Taskfile configuration
+# Path: tasks/tools/madge.yml
+
+version: "3"
+tasks:
+  madge:graph:
+    desc: Generate dependency graph as SVG
+    cmds:
+      - bunx madge --image out/deps-graph.svg src/index.ts
+    generates:
+      - out/deps-graph.svg
+    sources:
+      - src/**/*.ts
+  madge:graph:png:
+    desc: Generate dependency graph as PNG
+    cmds:
+      - bunx madge --image out/deps-graph.png src/index.ts
+    generates:
+      - out/deps-graph.png
+    sources:
+      - src/**/*.ts
+  madge:circular:
+    desc: Check for circular dependencies
+    cmds:
+      - bunx madge --circular src/index.ts
+    sources:
+      - src/**/*.ts
+  madge:list:
+    desc: List all dependencies
+    cmds:
+      - bunx madge --list src/index.ts
+    sources:
+      - src/**/*.ts
+  madge:json:
+    desc: Output dependency tree as JSON
+    cmds:
+      - bunx madge --json src/index.ts > out/deps.json
+    generates:
+      - out/deps.json
+    sources:
+      - src/**/*.ts
