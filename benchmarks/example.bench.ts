@@ -1,171 +1,132 @@
-import { bench, describe } from 'vitest'
+import { bench, describe } from 'vitest';
+import { greet, Calculator } from '../src/index';
 
-describe('Array Operations Benchmarks', () => {
+describe('greet() function benchmarks', () => {
   describe('@benchmark @performance', () => {
-    const sizes = [100, 1000, 10000]
-    
-    sizes.forEach(size => {
-      const arr = Array.from({ length: size }, (_, i) => i)
-      
-      bench(`Array.sort() - ${size} elements`, () => {
-        const copy = [...arr]
-        copy.sort((a, b) => b - a)
-      })
+    // Test different input sizes to measure performance characteristics
+    const inputs = {
+      short: 'Alice',
+      medium: 'Christopher',
+      long: 'Bartholomew Maximilian',
+      veryLong: 'A'.repeat(100),
+    };
 
-      bench(`Array.reverse() - ${size} elements`, () => {
-        const copy = [...arr]
-        copy.reverse()
-      })
+    bench('greet() - short name', () => {
+      // Prevent optimization by using the result
+      const result = greet(inputs.short);
+      if (result.length === 0) throw new Error('Invalid result');
+    });
 
-      bench(`for loop sum - ${size} elements`, () => {
-        let sum = 0
-        for (let i = 0; i < arr.length; i++) {
-          sum += arr[i]
-        }
-      })
+    bench('greet() - medium name', () => {
+      const result = greet(inputs.medium);
+      if (result.length === 0) throw new Error('Invalid result');
+    });
 
-      bench(`reduce sum - ${size} elements`, () => {
-        arr.reduce((acc, val) => acc + val, 0)
-      })
+    bench('greet() - long name', () => {
+      const result = greet(inputs.long);
+      if (result.length === 0) throw new Error('Invalid result');
+    });
 
-      bench(`Array.map() - ${size} elements`, () => {
-        arr.map(x => x * 2)
-      })
+    bench('greet() - very long name', () => {
+      const result = greet(inputs.veryLong);
+      if (result.length === 0) throw new Error('Invalid result');
+    });
 
-      bench(`Array.filter() - ${size} elements`, () => {
-        arr.filter(x => x % 2 === 0)
-      })
-    })
-  })
-})
+    // Batch operations to measure throughput
+    bench('greet() - 1000 iterations', () => {
+      for (let i = 0; i < 1000; i++) {
+        const result = greet('User');
+        if (result.length === 0) throw new Error('Invalid result');
+      }
+    });
+  });
+});
 
-describe('String Operations Benchmarks', () => {
+describe('Calculator class benchmarks', () => {
   describe('@benchmark @performance', () => {
-    const shortString = 'Hello World'
-    const longString = 'Lorem ipsum dolor sit amet, '.repeat(100)
-    
-    bench('String concatenation - short', () => {
-      let result = ''
+    const calc = new Calculator();
+
+    // Single operation benchmarks
+    bench('Calculator.add() - single operation', () => {
+      const result = calc.add(5, 3);
+      if (result !== 8) throw new Error('Invalid result');
+    });
+
+    bench('Calculator.subtract() - single operation', () => {
+      const result = calc.subtract(10, 4);
+      if (result !== 6) throw new Error('Invalid result');
+    });
+
+    bench('Calculator.multiply() - single operation', () => {
+      const result = calc.multiply(7, 6);
+      if (result !== 42) throw new Error('Invalid result');
+    });
+
+    bench('Calculator.divide() - single operation', () => {
+      const result = calc.divide(20, 4);
+      if (result !== 5) throw new Error('Invalid result');
+    });
+
+    // Batch operations to measure throughput
+    bench('Calculator.add() - 1000 iterations', () => {
+      for (let i = 0; i < 1000; i++) {
+        const result = calc.add(i, i + 1);
+        if (result < 0) throw new Error('Invalid result');
+      }
+    });
+
+    bench('Calculator mixed operations - 1000 iterations', () => {
+      for (let i = 1; i < 1000; i++) {
+        const sum = calc.add(i, i);
+        const diff = calc.subtract(sum, i);
+        const product = calc.multiply(diff, 2);
+        const quotient = calc.divide(product, 2);
+        if (quotient < 0) throw new Error('Invalid result');
+      }
+    });
+  });
+});
+
+describe('Calculator instantiation benchmarks', () => {
+  describe('@benchmark @performance @memory', () => {
+    bench('Calculator - single instantiation', () => {
+      const calc = new Calculator();
+      // Use the instance to prevent optimization
+      if (!calc) throw new Error('Invalid instance');
+    });
+
+    bench('Calculator - 100 instantiations', () => {
+      const instances: Calculator[] = [];
       for (let i = 0; i < 100; i++) {
-        result += shortString
+        instances.push(new Calculator());
       }
-    })
+      if (instances.length === 0) throw new Error('Invalid result');
+    });
 
-    bench('String join - short', () => {
-      const parts = new Array(100).fill(shortString)
-      parts.join('')
-    })
+    bench('Calculator - instantiation + operation', () => {
+      const calc = new Calculator();
+      const result = calc.add(1, 2);
+      if (result !== 3) throw new Error('Invalid result');
+    });
+  });
+});
 
-    bench('String concatenation - long', () => {
-      let result = ''
-      for (let i = 0; i < 10; i++) {
-        result += longString
+describe('Error handling benchmarks', () => {
+  describe('@benchmark @performance @error-handling', () => {
+    const calc = new Calculator();
+
+    bench('Calculator.divide() - valid division', () => {
+      const result = calc.divide(10, 2);
+      if (result !== 5) throw new Error('Invalid result');
+    });
+
+    bench('Calculator.divide() - error handling (try/catch)', () => {
+      try {
+        calc.divide(10, 0);
+      } catch (error) {
+        // Expected error, prevent optimization
+        if (!error) throw new Error('Expected error');
       }
-    })
-
-    bench('String join - long', () => {
-      const parts = new Array(10).fill(longString)
-      parts.join('')
-    })
-
-    bench('String.replace() - simple', () => {
-      longString.replace(/ipsum/g, 'IPSUM')
-    })
-
-    bench('String.split() and join()', () => {
-      longString.split(' ').join('-')
-    })
-  })
-})
-
-describe('Object Operations Benchmarks', () => {
-  describe('@benchmark @performance', () => {
-    const smallObject = { a: 1, b: 2, c: 3 }
-    const largeObject = Object.fromEntries(
-      Array.from({ length: 100 }, (_, i) => [`key${i}`, i])
-    )
-
-    bench('Object.keys() - small', () => {
-      Object.keys(smallObject)
-    })
-
-    bench('Object.keys() - large', () => {
-      Object.keys(largeObject)
-    })
-
-    bench('Object spread - small', () => {
-      const copy = { ...smallObject }
-    })
-
-    bench('Object spread - large', () => {
-      const copy = { ...largeObject }
-    })
-
-    bench('Object.assign() - small', () => {
-      Object.assign({}, smallObject)
-    })
-
-    bench('Object.assign() - large', () => {
-      Object.assign({}, largeObject)
-    })
-
-    bench('JSON.parse(JSON.stringify()) - small', () => {
-      JSON.parse(JSON.stringify(smallObject))
-    })
-
-    bench('JSON.parse(JSON.stringify()) - large', () => {
-      JSON.parse(JSON.stringify(largeObject))
-    })
-  })
-})
-
-describe('Map vs Object Benchmarks', () => {
-  describe('@benchmark @performance @comparison', () => {
-    const size = 1000
-    const obj: Record<string, number> = {}
-    const map = new Map<string, number>()
-    
-    // Setup data
-    for (let i = 0; i < size; i++) {
-      const key = `key${i}`
-      obj[key] = i
-      map.set(key, i)
-    }
-
-    bench('Object property access', () => {
-      for (let i = 0; i < 100; i++) {
-        const value = obj[`key${i}`]
-      }
-    })
-
-    bench('Map.get()', () => {
-      for (let i = 0; i < 100; i++) {
-        const value = map.get(`key${i}`)
-      }
-    })
-
-    bench('Object property set', () => {
-      for (let i = 0; i < 100; i++) {
-        obj[`newKey${i}`] = i
-      }
-    })
-
-    bench('Map.set()', () => {
-      for (let i = 0; i < 100; i++) {
-        map.set(`newKey${i}`, i)
-      }
-    })
-
-    bench('Object.hasOwnProperty()', () => {
-      for (let i = 0; i < 100; i++) {
-        obj.hasOwnProperty(`key${i}`)
-      }
-    })
-
-    bench('Map.has()', () => {
-      for (let i = 0; i < 100; i++) {
-        map.has(`key${i}`)
-      }
-    })
-  })
-})
+    });
+  });
+});
