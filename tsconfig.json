@@ -5,13 +5,16 @@
     "paths": {
       "@/*": ["./src/*"],
       "@tests/*": ["./tests/*"]
-    }
+    },
+    "allowImportingTsExtensions": true,
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "module": "esnext"
   },
   "include": [
     "src/**/*",
     "tests/**/*",
-    "benchmarks/**/*",
-    "examples/**/*"
+    "benchmarks/**/*"
   ],
   "exclude": [
     "node_modules",
