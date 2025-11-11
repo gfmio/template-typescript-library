@@ -1,0 +1,186 @@
+version: "3"
+
+tasks:
+  default:
+    cmd: task --list-all
+    desc: Default task (list all tasks)
+    silent: true
+
+  install:
+    desc: Install dependencies
+    cmds:
+      - bun install
+
+  clean:
+    desc: Clean generated files and dependencies
+    cmds:
+      - rm -rf node_modules
+      - rm -rf out
+      - rm -rf docs/.vitepress/dist
+      - rm -rf docs/.vitepress/cache
+      - rm -rf docs/api/generated
+      - rm -f bun.lock
+      - find examples -name node_modules -type d -exec rm -rf {} +
+      - find examples -name dist -type d -exec rm -rf {} +
+
+  build:
+    desc: Build the library
+    cmds:
+      - tsup
+      - bun run scripts/prepare-package.ts
+
+  test:
+    desc: Run tests
+    cmds:
+      - vitest run
+
+  test:watch:
+    desc: Run tests in watch mode
+    cmds:
+      - vitest
+
+  test:coverage:
+    desc: Run tests with coverage
+    cmds:
+      - vitest run --coverage
+
+  bench:
+    desc: Run benchmarks
+    cmds:
+      - vitest bench --config vitest.bench.config.ts
+
+  typecheck:
+    desc: Type check the code
+    cmds:
+      - tsc --noEmit
+
+  lint:check:
+    aliases:
+      - lint
+    desc: Lint files with Biome
+    cmds:
+      - bunx @biomejs/biome lint .
+
+  lint:fix:
+    desc: Lint and fix files with Biome
+    aliases:
+      - fix
+    cmds:
+      - bunx @biomejs/biome lint --write .
+
+  lint:eslint:
+    desc: Lint JSDoc with ESLint
+    cmds:
+      - eslint .
+
+  lint:eslint:fix:
+    desc: Lint and fix JSDoc with ESLint
+    cmds:
+      - eslint --fix .
+
+  format:check:
+    desc: Check formatting without making changes
+    cmds:
+      - bunx @biomejs/biome format .
+
+  format:apply:
+    desc: Format files with Biome
+    aliases:
+      - format
+      - fmt
+    cmds:
+      - bunx @biomejs/biome format --write .
+
+  format:prettier:
+    desc: Check YAML/Markdown with Prettier
+    cmds:
+      - prettier --check .
+
+  format:prettier:fix:
+    desc: Format YAML/Markdown with Prettier
+    cmds:
+      - prettier --write .
+
+  format:markdown:
+    desc: Lint Markdown files
+    cmds:
+      - markdownlint-cli2 "**/*.md"
+
+  format:markdown:fix:
+    desc: Lint and fix Markdown files
+    cmds:
+      - markdownlint-cli2 --fix "**/*.md"
+
+  format:yaml:
+    desc: Lint YAML files
+    cmds:
+      - yamllint .
+
+  format:toml:
+    desc: Check TOML files
+    cmds:
+      - taplo check
+
+  format:toml:fix:
+    desc: Format TOML files
+    cmds:
+      - taplo format
+
+  check:
+    desc: Run all checks (lint + format)
+    cmds:
+      - bunx @biomejs/biome check .
+
+  check:fix:
+    desc: Run all checks with auto-fix (lint + format)
+    cmds:
+      - bunx @biomejs/biome check --write .
+
+  validate:
+    desc: Run all validation (typecheck + check + test)
+    cmds:
+      - task typecheck
+      - task check
+      - task lint:eslint
+      - task format:prettier
+      - task format:markdown
+      - task format:toml
+      - task test
+
+  docs:typedoc:
+    desc: Generate TypeDoc API documentation
+    cmds:
+      - typedoc
+
+  docs:vitepress:dev:
+    desc: Start VitePress development server
+    cmds:
+      - vitepress dev docs
+
+  docs:vitepress:build:
+    desc: Build VitePress documentation
+    cmds:
+      - vitepress build docs
+
+  docs:vitepress:preview:
+    desc: Preview VitePress documentation
+    cmds:
+      - vitepress preview docs
+
+  examples:build:
+    desc: Build all examples
+    cmds:
+      - for: { var: EXAMPLE, sh: "ls examples" }
+        cmd: cd examples/{{.EXAMPLE}} && task build
+
+  examples:test:
+    desc: Test all examples
+    cmds:
+      - for: { var: EXAMPLE, sh: "ls examples" }
+        cmd: cd examples/{{.EXAMPLE}} && task test
+
+  examples:validate:
+    desc: Validate all examples
+    cmds:
+      - for: { var: EXAMPLE, sh: "ls examples" }
+        cmd: cd examples/{{.EXAMPLE}} && task validate
