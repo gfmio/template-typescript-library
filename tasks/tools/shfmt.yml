@@ -9,7 +9,9 @@ tasks:
     aliases:
       - shfmt
     cmds:
-      - shfmt -d -i 2 -ci -sr -bn scripts/
+      - shfmt -d -i 2 -ci -sr -bn ./
+    sources:
+      - "./**/*.sh"
 
   shfmt:format:
     desc: Format shell scripts
@@ -17,9 +19,34 @@ tasks:
       - shfmt:fix
       - shfmt:write
     cmds:
-      - shfmt -w -i 2 -ci -sr -bn scripts/
+      - shfmt -w -i 2 -ci -sr -bn ./
+    sources:
+      - "./**/*.sh"
 
   shfmt:check:verbose:
     desc: Check shell script formatting with verbose output
     cmds:
-      - shfmt -d -i 2 -ci -sr -bn scripts/
+      - shfmt -d -i 2 -ci -sr -bn ./
+    sources:
+      - "./**/*.sh"
+
+  shfmt:check:watch:
+    desc: Check shell script formatting in watch mode
+    aliases:
+      - shfmt:watch
+    cmds:
+      - task: shfmt:check
+    sources:
+      - "./**/*.sh"
+    watch: true
+
+  shfmt:format:watch:
+    desc: Format shell scripts in watch mode (auto-format on save)
+    aliases:
+      - shfmt:fix:watch
+      - shfmt:write:watch
+    cmds:
+      - task: shfmt:format
+    sources:
+      - "./**/*.sh"
+    watch: true
