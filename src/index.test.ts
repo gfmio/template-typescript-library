@@ -2,6 +2,18 @@ import { describe, expect, it } from 'vitest';
 
 import { Calculator, greet } from './index.ts';
 
+/**
+ * Unit Test Example
+ *
+ * Unit tests focus on testing individual functions or classes in isolation.
+ * They should be:
+ * - Fast to execute
+ * - Independent of external dependencies
+ * - Testing a single unit of functionality
+ *
+ * This example demonstrates testing the Calculator class in isolation.
+ */
+
 describe('greet', () => {
   it('should return a greeting message', () => {
     expect(greet('World')).toBe('Hello, World!');
