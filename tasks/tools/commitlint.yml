@@ -1,0 +1,28 @@
+# Taskfile configuration
+# Path: tasks/tools/commitlint.yml
+
+version: "3"
+tasks:
+  commitlint:check:
+    desc: Lint commit messages
+    cmds:
+      - bunx commitlint --from HEAD~1 --to HEAD --verbose
+  commitlint:check:pr:
+    desc: Lint PR title
+    cmds:
+      - echo "{{.PR_TITLE}}" | bunx commitlint --verbose
+    requires:
+      vars:
+        - PR_TITLE
+  commitlint:check:range:
+    desc: Lint commit messages in a range
+    cmds:
+      - bunx commitlint --from {{.FROM}} --to {{.TO}} --verbose
+    requires:
+      vars:
+        - FROM
+        - TO
+  commitlint:edit:
+    desc: Lint last commit message from editor
+    cmds:
+      - bunx commitlint --edit

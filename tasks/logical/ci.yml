@@ -35,6 +35,19 @@ tasks:
     desc: Run examples for CI
     cmds:
       - task: examples
+  ci:commitlint:
+    desc: Lint commit messages for CI
+    cmds:
+      - task: commitlint:check
+  ci:commitlint:pr:
+    desc: Lint PR title for CI
+    cmds:
+      - task: commitlint:check:pr
+        vars:
+          PR_TITLE: "{{.PR_TITLE}}"
+    requires:
+      vars:
+        - PR_TITLE
   ci:check:
     desc: Run all CI checks
     aliases:
