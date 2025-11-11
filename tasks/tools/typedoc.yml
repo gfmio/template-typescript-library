@@ -5,6 +5,8 @@ version: "3"
 tasks:
   typedoc:build:
     desc: Generate API documentation
+    aliases:
+      - typedoc
     cmds:
       - bun run typedoc --options {{.TYPEDOC_CONFIG}}
     sources:
@@ -13,3 +15,16 @@ tasks:
       - README.md
     generates:
       - "{{.DOCS_API_OUTPUT}}"
+  typedoc:build:watch:
+    desc: Generate API documentation in watch mode
+    aliases:
+      - typedoc:watch
+    cmds:
+      - bun run typedoc --options {{.TYPEDOC_CONFIG}} --watch
+    sources:
+      - "{{.SRC_TS_FILES}}"
+      - "{{.TYPEDOC_CONFIG}}"
+      - README.md
+    generates:
+      - "{{.DOCS_API_OUTPUT}}"
+    watch: true
