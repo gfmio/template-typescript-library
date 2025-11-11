@@ -1,0 +1,55 @@
+{
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "biomejs",
+    "commitlint",
+    "devenv",
+    "direnv",
+    "gfmio",
+    "markdownlint",
+    "nixos",
+    "nixpkgs",
+    "shellcheck",
+    "shfmt",
+    "taplo",
+    "taskfile",
+    "toml",
+    "tsup",
+    "typedoc",
+    "vitepress",
+    "vitest",
+    "yamllint"
+  ],
+  "ignorePaths": [
+    "node_modules/**",
+    "out/**",
+    "dist/**",
+    "coverage/**",
+    ".devenv/**",
+    ".direnv/**",
+    ".task/**",
+    "*.lock",
+    "bun.lock",
+    ".git/**",
+    "*.min.js",
+    "*.min.css",
+    "package-lock.json",
+    "yarn.lock",
+    "pnpm-lock.yaml"
+  ],
+  "ignoreRegExpList": [
+    "/```[\\s\\S]*?```/g",
+    "/@[a-z]+/g"
+  ],
+  "enableFiletypes": [
+    "typescript",
+    "javascript",
+    "markdown",
+    "json",
+    "jsonc",
+    "yaml",
+    "yml"
+  ]
+}

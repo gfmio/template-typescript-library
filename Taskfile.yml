@@ -71,6 +71,9 @@ includes:
   tools-commitlint:
     taskfile: ./tasks/tools/commitlint.yml
     flatten: true
+  tools-cspell:
+    taskfile: ./tasks/tools/cspell.yml
+    flatten: true
   tools-shell:
     taskfile: ./tasks/tools/shell.yml
     flatten: true

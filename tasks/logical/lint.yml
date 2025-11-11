@@ -11,6 +11,7 @@ tasks:
       - task: biome:check
       - task: eslint:check
       - task: shellcheck:check
+      - task: cspell:check
   lint:fix:
     desc: Fix all linting issues
     aliases:

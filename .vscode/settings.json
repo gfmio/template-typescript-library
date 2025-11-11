@@ -62,37 +62,14 @@
   // Spell Checker Settings
   // ===========================
   "cSpell.enabled": true,
-  "cSpell.ignorePaths": [
-    "node_modules",
-    "out",
-    "dist",
-    "coverage",
-    ".devenv",
-    ".direnv",
-    ".task",
-    "*.lock",
-    "bun.lock"
-  ],
-  "cSpell.words": [
-    "biomejs",
-    "commitlint",
-    "devenv",
-    "direnv",
-    "gfmio",
-    "markdownlint",
-    "nixos",
-    "nixpkgs",
-    "shellcheck",
-    "shfmt",
-    "taplo",
-    "taskfile",
-    "toml",
-    "tsup",
-    "typedoc",
-    "vitepress",
-    "vitest",
-    "yamllint"
-  ],
+  "cSpell.customDictionaries": {
+    "project-words": {
+      "name": "project-words",
+      "path": "./.cspell.json",
+      "addWords": true,
+      "scope": "workspace"
+    }
+  },
   "editor.bracketPairColorization.enabled": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.biome": "explicit",

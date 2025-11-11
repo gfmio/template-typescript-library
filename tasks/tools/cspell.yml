@@ -1,0 +1,17 @@
+# Taskfile configuration
+# Path: tasks/tools/cspell.yml
+
+version: "3"
+
+tasks:
+  cspell:check:
+    desc: Check spelling
+    aliases:
+      - cspell
+    cmds:
+      - bun run cspell "**" --no-progress --no-summary
+
+  cspell:check:verbose:
+    desc: Check spelling with verbose output
+    cmds:
+      - bun run cspell "**"
