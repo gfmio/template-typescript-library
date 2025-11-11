@@ -1,0 +1,66 @@
+# Taskfile configuration
+# Path: tasks/tools.yml
+
+version: "3"
+
+includes:
+  biome:
+    taskfile: ./tools/biome.yml
+    flatten: true
+  vitest:
+    taskfile: ./tools/vitest.yml
+    flatten: true
+  tsup:
+    taskfile: ./tools/tsup.yml
+    flatten: true
+  tsc:
+    taskfile: ./tools/tsc.yml
+    flatten: true
+  eslint:
+    taskfile: ./tools/eslint.yml
+    flatten: true
+  typedoc:
+    taskfile: ./tools/typedoc.yml
+    flatten: true
+  vitepress:
+    taskfile: ./tools/vitepress.yml
+    flatten: true
+  prettier:
+    taskfile: ./tools/prettier.yml
+    flatten: true
+  markdownlint:
+    taskfile: ./tools/markdownlint.yml
+    flatten: true
+  yamllint:
+    taskfile: ./tools/yamllint.yml
+    flatten: true
+  taplo:
+    taskfile: ./tools/taplo.yml
+    flatten: true
+  commitlint:
+    taskfile: ./tools/commitlint.yml
+    flatten: true
+  cspell:
+    taskfile: ./tools/cspell.yml
+    flatten: true
+  shell:
+    taskfile: ./tools/shell.yml
+    flatten: true
+  shellcheck:
+    taskfile: ./tools/shellcheck.yml
+    flatten: true
+  shfmt:
+    taskfile: ./tools/shfmt.yml
+    flatten: true
+  lefthook:
+    taskfile: ./tools/lefthook.yml
+    flatten: true
+  act:
+    taskfile: ./tools/act.yml
+    flatten: true
+  madge:
+    taskfile: ./tools/madge.yml
+    flatten: true
+  git:
+    taskfile: ./tools/git.yml
+    flatten: true

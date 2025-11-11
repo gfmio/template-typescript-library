@@ -1,0 +1,45 @@
+# Taskfile configuration
+# Path: tasks/logical.yml
+
+version: "3"
+
+includes:
+  deps:
+    taskfile: ./logical/deps.yml
+    flatten: true
+  lint:
+    taskfile: ./logical/lint.yml
+    flatten: true
+  format:
+    taskfile: ./logical/format.yml
+    flatten: true
+  bench:
+    taskfile: ./logical/bench.yml
+    flatten: true
+  build:
+    taskfile: ./logical/build.yml
+    flatten: true
+  test:
+    taskfile: ./logical/test.yml
+    flatten: true
+  clean:
+    taskfile: ./logical/clean.yml
+    flatten: true
+  docs:
+    taskfile: ./logical/docs.yml
+    flatten: true
+  dev:
+    taskfile: ./logical/dev.yml
+    flatten: true
+  ci:
+    taskfile: ./logical/ci.yml
+    flatten: true
+  release:
+    taskfile: ./logical/release.yml
+    flatten: true
+  setup:
+    taskfile: ./logical/setup.yml
+    flatten: true
+  typecheck:
+    taskfile: ./logical/typecheck.yml
+    flatten: true

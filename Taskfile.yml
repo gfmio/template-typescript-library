@@ -35,105 +35,112 @@ vars:
 includes:
   examples:
     taskfile: ./examples/Taskfile.yml
-  tools-biome:
-    taskfile: ./tasks/tools/biome.yml
+  tools:
+    taskfile: ./tasks/tools.yml
     flatten: true
-  tools-vitest:
-    taskfile: ./tasks/tools/vitest.yml
+  logical:
+    taskfile: ./tasks/logical.yml
     flatten: true
-  tools-tsup:
-    taskfile: ./tasks/tools/tsup.yml
-    flatten: true
-  tools-tsc:
-    taskfile: ./tasks/tools/tsc.yml
-    flatten: true
-  tools-eslint:
-    taskfile: ./tasks/tools/eslint.yml
-    flatten: true
-  tools-typedoc:
-    taskfile: ./tasks/tools/typedoc.yml
-    flatten: true
-  tools-vitepress:
-    taskfile: ./tasks/tools/vitepress.yml
-    flatten: true
-  tools-prettier:
-    taskfile: ./tasks/tools/prettier.yml
-    flatten: true
-  tools-markdownlint:
-    taskfile: ./tasks/tools/markdownlint.yml
-    flatten: true
-  tools-yamllint:
-    taskfile: ./tasks/tools/yamllint.yml
-    flatten: true
-  tools-taplo:
-    taskfile: ./tasks/tools/taplo.yml
-    flatten: true
-  tools-commitlint:
-    taskfile: ./tasks/tools/commitlint.yml
-    flatten: true
-  tools-cspell:
-    taskfile: ./tasks/tools/cspell.yml
-    flatten: true
-  tools-shell:
-    taskfile: ./tasks/tools/shell.yml
-    flatten: true
-  tools-shellcheck:
-    taskfile: ./tasks/tools/shellcheck.yml
-    flatten: true
-  tools-shfmt:
-    taskfile: ./tasks/tools/shfmt.yml
-    flatten: true
-  tools-lefthook:
-    taskfile: ./tasks/tools/lefthook.yml
-    flatten: true
-  tools-act:
-    taskfile: ./tasks/tools/act.yml
-    flatten: true
-  tools-madge:
-    taskfile: ./tasks/tools/madge.yml
-    flatten: true
-  tools-git:
-    taskfile: ./tasks/tools/git.yml
-    flatten: true
-  logical-deps:
-    taskfile: ./tasks/logical/deps.yml
-    flatten: true
-  logical-lint:
-    taskfile: ./tasks/logical/lint.yml
-    flatten: true
-  logical-format:
-    taskfile: ./tasks/logical/format.yml
-    flatten: true
-  logical-bench:
-    taskfile: ./tasks/logical/bench.yml
-    flatten: true
-  logical-build:
-    taskfile: ./tasks/logical/build.yml
-    flatten: true
-  logical-test:
-    taskfile: ./tasks/logical/test.yml
-    flatten: true
-  logical-clean:
-    taskfile: ./tasks/logical/clean.yml
-    flatten: true
-  logical-docs:
-    taskfile: ./tasks/logical/docs.yml
-    flatten: true
-  logical-dev:
-    taskfile: ./tasks/logical/dev.yml
-    flatten: true
-  logical-ci:
-    taskfile: ./tasks/logical/ci.yml
-    flatten: true
-  logical-release:
-    taskfile: ./tasks/logical/release.yml
-    flatten: true
-  logical-setup:
-    taskfile: ./tasks/logical/setup.yml
-    flatten: true
-  logical-typecheck:
-    taskfile: ./tasks/logical/typecheck.yml
-    flatten: true
+
+  # tools-biome:
+  #   taskfile: ./tasks/tools/biome.yml
+  #   flatten: true
+  # tools-vitest:
+  #   taskfile: ./tasks/tools/vitest.yml
+  #   flatten: true
+  # tools-tsup:
+  #   taskfile: ./tasks/tools/tsup.yml
+  #   flatten: true
+  # tools-tsc:
+  #   taskfile: ./tasks/tools/tsc.yml
+  #   flatten: true
+  # tools-eslint:
+  #   taskfile: ./tasks/tools/eslint.yml
+  #   flatten: true
+  # tools-typedoc:
+  #   taskfile: ./tasks/tools/typedoc.yml
+  #   flatten: true
+  # tools-vitepress:
+  #   taskfile: ./tasks/tools/vitepress.yml
+  #   flatten: true
+  # tools-prettier:
+  #   taskfile: ./tasks/tools/prettier.yml
+  #   flatten: true
+  # tools-markdownlint:
+  #   taskfile: ./tasks/tools/markdownlint.yml
+  #   flatten: true
+  # tools-yamllint:
+  #   taskfile: ./tasks/tools/yamllint.yml
+  #   flatten: true
+  # tools-taplo:
+  #   taskfile: ./tasks/tools/taplo.yml
+  #   flatten: true
+  # tools-commitlint:
+  #   taskfile: ./tasks/tools/commitlint.yml
+  #   flatten: true
+  # tools-cspell:
+  #   taskfile: ./tasks/tools/cspell.yml
+  #   flatten: true
+  # tools-shell:
+  #   taskfile: ./tasks/tools/shell.yml
+  #   flatten: true
+  # tools-shellcheck:
+  #   taskfile: ./tasks/tools/shellcheck.yml
+  #   flatten: true
+  # tools-shfmt:
+  #   taskfile: ./tasks/tools/shfmt.yml
+  #   flatten: true
+  # tools-lefthook:
+  #   taskfile: ./tasks/tools/lefthook.yml
+  #   flatten: true
+  # tools-act:
+  #   taskfile: ./tasks/tools/act.yml
+  #   flatten: true
+  # tools-madge:
+  #   taskfile: ./tasks/tools/madge.yml
+  #   flatten: true
+  # tools-git:
+  #   taskfile: ./tasks/tools/git.yml
+  #   flatten: true
+  # logical-deps:
+  #   taskfile: ./tasks/logical/deps.yml
+  #   flatten: true
+  # logical-lint:
+  #   taskfile: ./tasks/logical/lint.yml
+  #   flatten: true
+  # logical-format:
+  #   taskfile: ./tasks/logical/format.yml
+  #   flatten: true
+  # logical-bench:
+  #   taskfile: ./tasks/logical/bench.yml
+  #   flatten: true
+  # logical-build:
+  #   taskfile: ./tasks/logical/build.yml
+  #   flatten: true
+  # logical-test:
+  #   taskfile: ./tasks/logical/test.yml
+  #   flatten: true
+  # logical-clean:
+  #   taskfile: ./tasks/logical/clean.yml
+  #   flatten: true
+  # logical-docs:
+  #   taskfile: ./tasks/logical/docs.yml
+  #   flatten: true
+  # logical-dev:
+  #   taskfile: ./tasks/logical/dev.yml
+  #   flatten: true
+  # logical-ci:
+  #   taskfile: ./tasks/logical/ci.yml
+  #   flatten: true
+  # logical-release:
+  #   taskfile: ./tasks/logical/release.yml
+  #   flatten: true
+  # logical-setup:
+  #   taskfile: ./tasks/logical/setup.yml
+  #   flatten: true
+  # logical-typecheck:
+  #   taskfile: ./tasks/logical/typecheck.yml
+  #   flatten: true
 tasks:
   default:
     desc: Show all available tasks
