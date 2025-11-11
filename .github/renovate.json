@@ -11,7 +11,6 @@
     ":updateNotScheduled",
     ":automergeDisabled",
     ":ignoreModulesAndTests",
-    ":autodetectPinVersions",
     ":prHourlyLimit2",
     ":prConcurrentLimit10",
     "group:monorepos",
@@ -37,39 +36,39 @@
     },
     {
       "description": "Group all Biome packages",
-      "matchPackagePatterns": ["^@biomejs/"],
       "groupName": "Biome",
-      "commitMessageTopic": "Biome"
+      "commitMessageTopic": "Biome",
+      "matchPackageNames": ["/^@biomejs//"]
     },
     {
       "description": "Group all TypeScript packages",
-      "matchPackagePatterns": ["^typescript", "^@types/"],
       "groupName": "TypeScript",
-      "commitMessageTopic": "TypeScript"
+      "commitMessageTopic": "TypeScript",
+      "matchPackageNames": ["/^typescript/", "/^@types//"]
     },
     {
       "description": "Group all Vitest packages",
-      "matchPackagePatterns": ["^vitest", "^@vitest/"],
       "groupName": "Vitest",
-      "commitMessageTopic": "Vitest"
+      "commitMessageTopic": "Vitest",
+      "matchPackageNames": ["/^vitest/", "/^@vitest//"]
     },
     {
       "description": "Group all VitePress packages",
-      "matchPackagePatterns": ["^vitepress"],
       "groupName": "VitePress",
-      "commitMessageTopic": "VitePress"
+      "commitMessageTopic": "VitePress",
+      "matchPackageNames": ["/^vitepress/"]
     },
     {
       "description": "Group all ESLint packages",
-      "matchPackagePatterns": ["^eslint", "^@eslint/"],
       "groupName": "ESLint",
-      "commitMessageTopic": "ESLint"
+      "commitMessageTopic": "ESLint",
+      "matchPackageNames": ["/^eslint/", "/^@eslint//"]
     },
     {
       "description": "Group all Prettier packages",
-      "matchPackagePatterns": ["^prettier"],
       "groupName": "Prettier",
-      "commitMessageTopic": "Prettier"
+      "commitMessageTopic": "Prettier",
+      "matchPackageNames": ["/^prettier/"]
     },
     {
       "description": "Group all linting tools",
