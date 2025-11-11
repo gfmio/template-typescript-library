@@ -1,0 +1,20 @@
+# GitHub Sponsors funding configuration
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/displaying-a-sponsor-button
+
+# GitHub Sponsors username
+github: # [gfmio]
+
+# Other funding platforms
+# patreon: username
+# open_collective: project
+# ko_fi: username
+# tidelift: npm/package-name
+# community_bridge: project-name
+# liberapay: username
+# issuehunt: username
+# otechie: username
+# lfx_crowdfunding: project-name
+# polar: username
+
+# Custom funding links (up to 4)
+# custom: ["https://example.com"]
