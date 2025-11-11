@@ -79,19 +79,15 @@ See all available commands: `task --list-all`
 
 For detailed development instructions, see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
-### Automated Maintenance
+### Repository Setup
 
-This repository uses [Renovate](https://github.com/renovatebot/renovate) for automated dependency updates. To enable it:
+After creating a repository from this template, follow the [Setup Guide](.github/SETUP.md) to configure:
 
-1. Install the [Renovate GitHub App](https://github.com/apps/renovate) on your repository
-2. Renovate will automatically create PRs for dependency updates based on the configuration in [.github/renovate.json](.github/renovate.json)
-
-### Repository Configuration
-
-This repository includes automated configuration via [.github/settings.yml](.github/settings.yml). To use it:
-
-1. Install the [Probot Settings App](https://github.com/apps/settings) (optional)
-2. Or configure these settings manually in your GitHub repository settings
+- **GitHub Apps** - Renovate for automated dependency updates
+- **Repository Settings** - Branch protection, merge strategies, security features
+- **Labels & Milestones** - Issue and PR organization
+- **Secrets** - NPM tokens for publishing
+- **Optional Features** - Discussions, GitHub Pages, Code Owners
 
 ## Project Structure
 
