@@ -167,6 +167,11 @@ tasks:
     cmds:
       - vitepress preview docs
 
+  docs:version:
+    desc: Create a new versioned copy of the documentation
+    cmds:
+      - bun run scripts/version-docs.ts {{.CLI_ARGS}}
+
   examples:build:
     desc: Build all examples
     cmds:
