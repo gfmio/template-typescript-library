@@ -49,7 +49,7 @@
     "@gfmio/config-vitepress": "*",
     "@gfmio/config-vitest": "*"
   },
-  "packageManager": "bun@1.3.2",
+  "packageManager": "bun@1.4.2",
   "peerDependencies": {},
   "publishConfig": {
     "access": "public",
