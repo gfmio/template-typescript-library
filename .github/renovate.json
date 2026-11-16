@@ -149,9 +149,11 @@
   },
   "prCreation": "immediate",
   "rebaseWhen": "behind-base-branch",
-  "dependencyDashboard": true,
-  "dependencyDashboardTitle": "🤖 Dependency Updates",
-  "dependencyDashboardHeader": "This dashboard shows all pending dependency updates. Click on a checkbox to create a PR for that update now.",
-  "dependencyDashboardLabels": ["dependencies", "renovate"],
+  "dependencyDashboard": {
+    "enabled": true,
+    "title": "🤖 Dependency Updates",
+    "header": "This dashboard shows all pending dependency updates. Click on a checkbox to create a PR for that update now.",
+    "labels": ["dependencies", "renovate"]
+  },
   "configMigration": true
 }
